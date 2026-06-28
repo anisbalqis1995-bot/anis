@@ -1,199 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mercedes-AMG PETRONAS F1 Team | Replica</title>
-    <!-- Tailwind CSS v4 -->
+    <title>Sistem Semakan Kompetensi Vokasional (Replika SPKV)</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Warna khas Mercedes F1 */
-        .text-petronas { color: #00A19B; }
-        .bg-petronas { bg-color: #00A19B; }
-        .border-petronas { border-color: #00A19B; }
-        .shadow-petronas { filter: drop-shadow(0 0 8px rgba(0, 161, 155, 0.5)); }
-        
-        body {
-            background-color: #0a0a0c;
-            color: #f3f4f6;
+        @media print {
+            .no-print { display: none; }
+            body { background-color: #fff; color: #000; }
+            .print-card { border: 1px solid #cbd5e1; shadow: none; }
         }
     </style>
 </head>
-<body class="font-sans antialiased overflow-x-hidden">
+<body class="bg-slate-100 font-sans antialiased text-slate-800 min-h-screen">
 
-    <!-- NAVIGATION BAR -->
-    <nav class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0c]/90 backdrop-blur-md border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Logo Brand -->
+    <header class="bg-blue-900 text-white shadow-md no-print">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 border border-white rounded-full flex items-center justify-center font-bold tracking-tighter text-sm">
-                    ///
+                <div class="bg-white text-blue-900 p-2 rounded-lg font-bold text-sm">
+                    <i class="fa-solid fa-graduation-cap text-lg"></i>
                 </div>
                 <div>
-                    <span class="text-sm font-black tracking-widest block uppercase text-white">MERCEDES-AMG</span>
-                    <span class="text-[10px] tracking-widest text-gray-400 block -mt-1 font-semibold uppercase">PETRONAS F1 TEAM</span>
+                    <h1 class="text-sm font-bold tracking-wider uppercase">Sistem Portal Kompetensi</h1>
+                    <p class="text-[10px] text-blue-200 uppercase -mt-0.5">Kementerian Pendidikan Malaysia</p>
                 </div>
             </div>
-
-            <!-- Menu Desktop -->
-            <div class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-widest">
-                <a href="#" class="text-white hover:text-petronas transition">Latest</a>
-                <a href="#" class="text-gray-400 hover:text-white transition">The Car</a>
-                <a href="#" class="text-gray-400 hover:text-white transition">Team</a>
-                <a href="#" class="text-gray-400 hover:text-white transition">Standings</a>
-                <a href="#" class="text-gray-400 hover:text-white transition">Sustainability</a>
+            <div class="flex items-center gap-4 text-xs">
+                <span class="bg-blue-800 px-3 py-1.5 rounded font-mono">ID KV: K05063</span>
+                <button onclick="window.print()" class="bg-emerald-600 hover:bg-emerald-700 px-3 py-1.5 font-bold rounded transition cursor-pointer">
+                    <i class="fa-solid fa-print mr-1"></i> Cetak Slip
+                </button>
             </div>
-
-            <!-- Hubungi / Kedai Button -->
-            <div class="hidden md:flex items-center gap-4">
-                <a href="#" class="text-xs font-bold uppercase tracking-widest bg-transparent border border-white text-white px-5 py-2.5 rounded-none hover:bg-white hover:text-black transition duration-300">
-                    Shop F1 Gear
-                </a>
-            </div>
-
-            <!-- Mobile Menu Icon -->
-            <button class="md:hidden text-white text-xl">
-                <i class="fa-solid fa-bars-staggered"></i>
-            </button>
         </div>
-    </nav>
+    </header>
 
-    <!-- HERO SECTION (PENGALAMAN VISUAL UTAMA) -->
-    <section class="relative min-h-screen w-full flex items-center pt-20 overflow-hidden bg-radial from-gray-900 to-[#0a0a0c]">
-        <!-- Latar Belakang Grafik/Garisan Lumba -->
-        <div class="absolute inset-0 opacity-10 bg-[linear-gradient(45deg,#00A19B_1px,transparent_1px),linear-gradient(-45deg,#00A19B_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+    <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
         
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10 py-12">
-            <!-- Teks Hero -->
-            <div class="lg:col-span-6 space-y-6">
-                <div class="inline-flex items-center gap-2 bg-gray-900 border border-gray-800 px-3 py-1 text-[10px] font-bold tracking-widest uppercase text-gray-400">
-                    <span class="w-2 h-2 rounded-full bg-[#00A19B] animate-pulse"></span> 2026 Season Campaign
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <div class="bg-white p-6 rounded-xl shadow-xs border border-slate-200 print-card lg:col-span-1">
+                <div class="border-b border-slate-100 pb-4 mb-4 flex items-center gap-3">
+                    <div class="bg-blue-50 text-blue-600 p-3 rounded-full text-xl w-12 h-12 flex items-center justify-center">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Maklumat Calon</h3>
+                        <p class="text-sm font-bold text-slate-700">MUHAMMAD AMIRUL BIN AZMAN</p>
+                    </div>
                 </div>
-                <h1 class="text-4xl sm:text-6xl font-black tracking-tighter uppercase leading-none">
-                    Enter A New <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-[#00A19B]">Era Of Speed.</span>
-                </h1>
-                <p class="text-gray-400 text-sm sm:text-base max-w-lg leading-relaxed">
-                    Introducing the Mercedes-AMG F1 W17 E PERFORMANCE. Engineered with advanced sustainable power, active aerodynamics, and the relentless hunt for performance.
-                </p>
-                <div class="flex flex-wrap gap-4 pt-2">
-                    <a href="#" class="bg-[#00A19B] text-black font-bold text-xs uppercase tracking-widest px-8 py-4 transition hover:bg-[#00817c] duration-300">
-                        Explore W17
-                    </a>
-                    <a href="#" class="border border-gray-700 text-white font-bold text-xs uppercase tracking-widest px-8 py-4 transition hover:bg-white hover:text-black hover:border-white duration-300">
-                        Watch Launch
-                    </a>
-                </div>
+                
+                <table class="w-full text-xs space-y-2">
+                    <tr class="border-b border-slate-50"><td class="py-2 text-slate-400 font-medium">No. KP</td><td class="py-2 font-bold text-right text-slate-700">060512-10-0231</td></tr>
+                    <tr class="border-b border-slate-50"><td class="py-2 text-slate-400 font-medium">Angka Giliran</td><td class="py-2 font-bold text-right text-slate-700">K05063/2026/012</td></tr>
+                    <tr class="border-b border-slate-50"><td class="py-2 text-slate-400 font-medium">Status</td><td class="py-2 text-right"><span class="bg-green-100 text-green-700 font-bold px-2 py-0.5 rounded text-[10px]">AKTIF</span></td></tr>
+                </table>
             </div>
 
-            <!-- Visual Kereta / Grafik Kontemporari -->
-            <div class="lg:col-span-6 relative flex justify-center items-center">
-                <!-- Sila gantikan gambar kereta sebenar jika mahu -->
-                <div class="w-full h-[300px] sm:h-[400px] rounded-xl border border-gray-800 bg-gradient-to-br from-gray-900 to-black p-6 relative group overflow-hidden flex flex-col justify-end">
-                    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=1200')] bg-cover bg-center mix-blend-luminosity opacity-40 group-hover:opacity-60 transition duration-500"></div>
-                    <div class="absolute top-4 right-4 text-6xl font-black text-gray-800/30 tracking-tighter select-none">W17</div>
-                    <div class="relative z-10 border-l-2 border-[#00A19B] pl-4">
-                        <span class="text-[10px] uppercase font-bold tracking-widest text-[#00A19B]">Technical Spec</span>
-                        <h4 class="text-lg font-bold uppercase tracking-tight text-white">50/50 Split Hybrid Power Unit</h4>
+            <div class="bg-white p-6 rounded-xl shadow-xs border border-slate-200 print-card lg:col-span-2">
+                <div class="border-b border-slate-100 pb-4 mb-4 flex items-center gap-3">
+                    <div class="bg-amber-50 text-amber-600 p-3 rounded-full text-xl w-12 h-12 flex items-center justify-center">
+                        <i class="fa-solid fa-school"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Pusat Pengajian / Program</h3>
+                        <p class="text-sm font-bold text-slate-700">KOLEJ VOKASIONAL KUALA LUMPUR</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div>
+                        <p class="text-slate-400 font-medium mb-0.5">Bidang Latihan / Kursus</p>
+                        <p class="font-bold text-slate-700 uppercase">Teknologi Maklumat (Sistem Komputer & Rangkaian)</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-400 font-medium mb-0.5">Tahap Pengajian</p>
+                        <p class="font-bold text-slate-700 uppercase">Diploma Vokasional Malaysia (DVM)</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- LIVE RACE COUNTDOWN TICKER -->
-    <section class="bg-black border-y border-gray-800 py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <i class="fa-solid fa-flag-checkered text-xl text-gray-500"></i>
-                <div>
-                    <p class="text-[10px] font-bold text-[#00A19B] uppercase tracking-widest">NEXT GRAND PRIX</p>
-                    <h3 class="text-sm font-black uppercase tracking-wider text-white">Silverstone Grand Prix</h3>
-                </div>
+        <div class="bg-white rounded-xl shadow-xs border border-slate-200 print-card overflow-hidden">
+            <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                <h3 class="text-xs font-bold text-slate-600 uppercase tracking-widest flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-blue-600"></i> Senarai Modul & Penilaian Kompetensi
+                </h3>
+                <span class="text-[10px] font-semibold bg-blue-100 text-blue-800 px-2.5 py-1 rounded">Sesi Semasa: 2026</span>
             </div>
-            <!-- Kaunter Masa Palsu (Boleh dikemaskini guna JS) -->
-            <div class="flex gap-4 sm:gap-6 text-center">
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="bg-slate-100/80 text-slate-500 uppercase font-bold border-b border-slate-200">
+                            <th class="p-4 w-20 text-center">Kod Modul</th>
+                            <th class="p-4">Deskripsi Modul / Kompetensi</th>
+                            <th class="p-4 w-28 text-center">Mata Kredit</th>
+                            <th class="p-4 w-32 text-center">Penilaian Amali</th>
+                            <th class="p-4 w-32 text-center">Penilaian Teori</th>
+                            <th class="p-4 w-28 text-center">Keputusan</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-slate-700">
+                        <tr class="hover:bg-slate-50/80 transition">
+                            <td class="p-4 font-mono font-bold text-center text-blue-900">DKR 1013</td>
+                            <td class="p-4">
+                                <p class="font-bold">Computer System Architecture</p>
+                                <p class="text-[10px] text-slate-400 mt-0.5">Pemasangan, konfigurasi komponen perkakasan asas komputer.</p>
+                            </td>
+                            <td class="p-4 text-center font-medium">3.0</td>
+                            <td class="p-4 text-center text-emerald-600 font-bold">88% (Cemerlang)</td>
+                            <td class="p-4 text-center text-emerald-600 font-bold">75% (Kepujian)</td>
+                            <td class="p-4 text-center">
+                                <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded text-[10px]">KOMPETEN</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition">
+                            <td class="p-4 font-mono font-bold text-center text-blue-900">DKR 1024</td>
+                            <td class="p-4">
+                                <p class="font-bold">Server Routing and Switching Configuration</p>
+                                <p class="text-[10px] text-slate-400 mt-0.5">Penyelenggaraan suis rangkaian bertahap enterprise dan kawalan VLAN.</p>
+                            </td>
+                            <td class="p-4 text-center font-medium">4.0</td>
+                            <td class="p-4 text-center text-emerald-600 font-bold">92% (Cemerlang)</td>
+                            <td class="p-4 text-center text-emerald-600 font-bold">81% (Cemerlang)</td>
+                            <td class="p-4 text-center">
+                                <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded text-[10px]">KOMPETEN</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50/80 transition">
+                            <td class="p-4 font-mono font-bold text-center text-blue-900">DKR 1033</td>
+                            <td class="p-4">
+                                <p class="font-bold">Network Cyber Security Operations</p>
+                                <p class="text-[10px] text-slate-400 mt-0.5">Konfigurasi tembok api (firewall) dan pemantauan trafik berniat jahat.</p>
+                            </td>
+                            <td class="p-4 text-center font-medium">3.0</td>
+                            <td class="p-4 text-center text-amber-600 font-bold">65% (Lulus)</td>
+                            <td class="p-4 text-center text-amber-600 font-bold">60% (Lulus)</td>
+                            <td class="p-4 text-center">
+                                <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded text-[10px]">KOMPETEN</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-slate-50/60 px-6 py-4 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center text-xs">
                 <div>
-                    <span class="block text-xl font-black tracking-tight text-white">03</span>
-                    <span class="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Days</span>
+                    <p class="text-slate-400 font-medium">Jumlah Kredit Diambil</p>
+                    <p class="text-lg font-black text-slate-700 mt-0.5">10.0</p>
                 </div>
-                <div class="text-gray-700 text-xl font-bold">:</div>
                 <div>
-                    <span class="block text-xl font-black tracking-tight text-white">11</span>
-                    <span class="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Hrs</span>
+                    <p class="text-slate-400 font-medium">Modul Kompeten</p>
+                    <p class="text-lg font-black text-emerald-600 mt-0.5">3 / 3 Modul</p>
                 </div>
-                <div class="text-gray-700 text-xl font-bold">:</div>
                 <div>
-                    <span class="block text-xl font-black tracking-tight text-white">29</span>
-                    <span class="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Mins</span>
+                    <p class="text-slate-400 font-medium">Purata Nilai Gred Terkumpul (PNGK)</p>
+                    <p class="text-lg font-black text-blue-900 mt-0.5">3.67</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- DRIVER LINE-UP SECTION -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span class="text-xs uppercase font-bold tracking-widest text-[#00A19B]">The Line-Up</span>
-            <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">Our Drivers</h2>
-            <div class="w-12 h-1 bg-[#00A19B] mx-auto rounded-full"></div>
-        </div>
+    </main>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <!-- Pemandu 1 -->
-            <div class="bg-gray-900/40 border border-gray-800 hover:border-gray-700 transition duration-300 overflow-hidden flex flex-col justify-between group">
-                <div class="p-8 pb-4">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <span class="text-3xl font-black text-gray-700 group-hover:text-[#00A19B] transition duration-300">63</span>
-                            <h3 class="text-xl font-black uppercase tracking-tight text-white mt-1">George Russell</h3>
-                        </div>
-                        <span class="text-[10px] font-bold uppercase bg-gray-800 text-gray-400 px-2 py-1 tracking-widest">GBR</span>
-                    </div>
-                </div>
-                <div class="h-64 bg-linear-to-t from-black to-transparent flex items-end p-8 relative">
-                    <!-- Placeholder Img -->
-                    <div class="absolute inset-0 bg-gradient-to-tr from-gray-900 to-slate-800 mix-blend-overlay opacity-30"></div>
-                    <a href="#" class="text-xs font-bold uppercase tracking-widest text-white group-hover:text-[#00A19B] transition flex items-center gap-2 relative z-10">
-                        View Driver Profile <i class="fa-solid fa-arrow-right-long"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Pemandu 2 -->
-            <div class="bg-gray-900/40 border border-gray-800 hover:border-gray-700 transition duration-300 overflow-hidden flex flex-col justify-between group">
-                <div class="p-8 pb-4">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <span class="text-3xl font-black text-gray-700 group-hover:text-[#00A19B] transition duration-300">12</span>
-                            <h3 class="text-xl font-black uppercase tracking-tight text-white mt-1">Kimi Antonelli</h3>
-                        </div>
-                        <span class="text-[10px] font-bold uppercase bg-gray-800 text-gray-400 px-2 py-1 tracking-widest">ITA</span>
-                    </div>
-                </div>
-                <div class="h-64 bg-linear-to-t from-black to-transparent flex items-end p-8 relative">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-gray-900 to-slate-800 mix-blend-overlay opacity-30"></div>
-                    <a href="#" class="text-xs font-bold uppercase tracking-widest text-white group-hover:text-[#00A19B] transition flex items-center gap-2 relative z-10">
-                        View Driver Profile <i class="fa-solid fa-arrow-right-long"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-black border-t border-gray-900 text-gray-500 py-12 text-xs">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p>&copy; 2026 Mercedes-AMG PETRONAS F1 Team Replica. All rights reserved.</p>
-            <div class="flex gap-6">
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-instagram text-base"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-tiktok text-base"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-youtube text-base"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-x-twitter text-base"></i></a>
-            </div>
-        </div>
+    <footer class="max-w-7xl mx-auto px-4 pb-8 text-center text-[11px] text-slate-400 space-y-1 no-print">
+        <p>Sistem ini dijanakan secara automatik untuk kegunaan Semakan Kompetensi Kolej Vokasional.</p>
+        <p>&copy; 2026 Kementerian Pendidikan Malaysia (KPM). Kod Replika Akur SPKV.</p>
     </footer>
 
 </body>
