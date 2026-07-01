@@ -24,7 +24,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans antialiased text-slate-800" x-data="vcmsApp()" x-init="initCharts()">
+<body class="bg-slate-50 font-sans antialiased text-slate-800" x-data="vcmsApp()" x-init="initApp()">
 
     <div class="flex h-screen overflow-hidden">
         
@@ -32,7 +32,7 @@
         <aside class="bg-slate-950 text-slate-200 w-64 space-y-4 py-6 px-4 flex flex-col justify-between shadow-xl z-20 no-print flex-shrink-0">
             <div class="space-y-4">
                 
-                <!-- Pautan Kembali ke First Page (Laman Utama) -->
+                <!-- Pautan Kembali ke Laman Utama (first.html) -->
                 <a href="first.html" class="flex items-center justify-center space-x-2 bg-slate-900 hover:bg-slate-800 text-emerald-400 hover:text-emerald-300 py-2.5 px-4 rounded-xl transition duration-150 text-xs font-bold border border-slate-800 shadow-inner">
                     <i class="fa-solid fa-arrow-left-long"></i>
                     <span>Kembali ke Laman Utama</span>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
 
-                <!-- Navigasi Menu -->
+                <!-- Navigasi Menu Tanpa Awalan Nombor -->
                 <nav class="space-y-1">
                     <button @click="setTab('dashboard')" :class="activeTab === 'dashboard' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:bg-slate-900 hover:text-slate-100'" class="w-full flex items-center space-x-3 py-3 px-4 rounded-xl transition duration-150 font-medium text-sm">
                         <i class="fa-solid fa-gauge-high text-lg"></i>
@@ -60,82 +60,55 @@
                     
                     <button @click="setTab('anggaran')" :class="activeTab === 'anggaran' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:bg-slate-900 hover:text-slate-100'" class="w-full flex items-center space-x-3 py-3 px-4 rounded-xl transition duration-150 font-medium text-sm">
                         <i class="fa-solid fa-chart-pie text-lg text-blue-400"></i>
-                        <span>1. Anggaran</span>
+                        <span>Anggaran</span>
                     </button>
                     <button @click="setTab('bukutunai')" :class="activeTab === 'bukutunai' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:bg-slate-900 hover:text-slate-100'" class="w-full flex items-center space-x-3 py-3 px-4 rounded-xl transition duration-150 font-medium text-sm">
                         <i class="fa-solid fa-book-open text-lg text-emerald-400"></i>
-                        <span>2. Buku Tunai</span>
+                        <span>Buku Tunai</span>
                     </button>
                     <button @click="setTab('jumaat')" :class="activeTab === 'jumaat' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:bg-slate-900 hover:text-slate-100'" class="w-full flex items-center space-x-3 py-3 px-4 rounded-xl transition duration-150 font-medium text-sm">
                         <i class="fa-solid fa-calendar-check text-lg text-indigo-400"></i>
-                        <span>4. Kutipan Jumaat</span>
+                        <span>Kutipan Jumaat</span>
                     </button>
                     <button @click="setTab('laporan')" :class="activeTab === 'laporan' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:bg-slate-900 hover:text-slate-100'" class="w-full flex items-center space-x-3 py-3 px-4 rounded-xl transition duration-150 font-medium text-sm">
                         <i class="fa-solid fa-chart-line text-lg text-purple-400"></i>
-                        <span>5. Laporan Bulanan</span>
+                        <span>Laporan Bulanan</span>
                     </button>
                     <button @click="setTab('penyata')" :class="activeTab === 'penyata' ? 'bg-emerald-600 text-white shadow-md' : 'text-slate-400 hover:bg-slate-900 hover:text-slate-100'" class="w-full flex items-center space-x-3 py-3 px-4 rounded-xl transition duration-150 font-medium text-sm">
                         <i class="fa-solid fa-file-invoice-dollar text-lg text-rose-400"></i>
-                        <span>6. Penyata Bulanan</span>
+                        <span>Penyata Bulanan</span>
                     </button>
 
                     <div class="pt-4 pb-2 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Modul Mingguan</div>
                     
                     <button @click="setTab('tabung')" :class="activeTab === 'tabung' ? 'bg-amber-500 text-slate-950 shadow-md font-bold' : 'text-slate-400 hover:bg-slate-900 hover:text-slate-100'" class="w-full flex items-center space-x-3 py-3 px-4 rounded-xl transition duration-150 font-medium text-sm">
                         <i class="fa-solid fa-box-archive text-lg text-amber-500"></i>
-                        <span>3. Kutipan Tabung Mingguan</span>
+                        <span>Kutipan Tabung Mingguan</span>
                     </button>
                 </nav>
             </div>
             
             <div class="border-t border-slate-900 pt-4 px-2 text-center">
-                <p class="text-xs text-slate-500">Versi Sistem: 4.0 (Pintar)</p>
-                <p class="text-[10px] text-emerald-400 mt-1 font-mono">Dihoskan di GitHub Pages</p>
+                <p class="text-xs text-slate-500" x-text="kariahName"></p>
+                <p class="text-[10px] text-emerald-400 mt-1 font-mono">Status: Bersambung Portal</p>
             </div>
         </aside>
 
         <!-- MAIN AREA -->
-        <div class="flex-1 flex flex-col overflow-hidden animate-fadeIn">
+        <div class="flex-1 flex flex-col overflow-hidden">
             
-            <!-- HEADER & SEARCH BAR (no-print) -->
+            <!-- HEADER (no-print) -->
             <header class="bg-white shadow-sm border-b border-slate-200 py-4 px-6 md:px-8 flex flex-col md:flex-row md:justify-between md:items-center gap-4 z-10 no-print flex-shrink-0">
                 <div class="flex items-center space-x-3">
                     <h2 class="text-xl font-bold text-slate-800" x-text="getTabTitle()"></h2>
                     <span class="hidden xl:inline-flex text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full border border-slate-200">
-                        Saringan Aktif: <span class="font-bold text-emerald-600 ml-1" x-text="selectedYear + ' > ' + selectedMonth + ' > ' + selectedWeek"></span>
+                        Saringan Aktif: <span class="font-bold text-emerald-600 ml-1" x-text="selectedYear + ' > ' + selectedMonth"></span>
                     </span>
                 </div>
                 
-                <!-- ENTRANCE SURVEY STYLE YEAR SEARCH & FILTER CONTROLS -->
-                <div class="flex flex-wrap items-center gap-2">
-                    <div class="flex items-center space-x-1 bg-slate-100 p-1 rounded-xl border border-slate-300">
-                        <!-- Tahun Sebelumnya -->
-                        <button @click="prevYear()" title="Tahun Sebelumnya" class="p-2 text-slate-600 hover:text-slate-900 hover:bg-white rounded-lg transition text-xs font-bold">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </button>
-                        
-                        <!-- Input Carian Tahun -->
-                        <div class="relative">
-                            <i class="fa-solid fa-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
-                            <input type="number" 
-                                   x-model.number="searchQuery" 
-                                   @keyup.enter="searchYear()" 
-                                   placeholder="Cari Tahun..." 
-                                   class="w-24 md:w-28 pl-8 pr-2 py-1.5 text-xs font-bold text-slate-800 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-center">
-                        </div>
-
-                        <!-- Butang Go -->
-                        <button @click="searchYear()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-2 py-1.5 rounded-lg text-xs transition">
-                            Cari
-                        </button>
-
-                        <!-- Tahun Seterusnya -->
-                        <button @click="nextYear()" title="Tahun Seterusnya" class="p-2 text-slate-600 hover:text-slate-900 hover:bg-white rounded-lg transition text-xs font-bold">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
-                    </div>
-
-                    <!-- Filter Bulan -->
+                <!-- FILTER BULANAN GLOBAL -->
+                <div class="flex items-center space-x-2">
+                    <label class="hidden md:inline text-xs font-semibold text-slate-500 uppercase">Saringan Bulan:</label>
                     <select x-model="selectedMonth" @change="updateData()" class="bg-emerald-50 border border-emerald-200 rounded-xl text-xs font-bold px-3 py-2 text-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer shadow-sm">
                         <option value="Januari">Januari</option>
                         <option value="Februari">Februari</option>
@@ -151,32 +124,65 @@
             <main class="flex-1 overflow-y-auto p-4 md:p-8">
                 
                 <!-- ================== TAB: DASHBOARD UTAMA ================== -->
-                <div x-show="activeTab === 'dashboard'" x-cloak class="space-y-8">
+                <div x-show="activeTab === 'dashboard'" x-cloak class="space-y-8 animate-fadeIn">
                     
                     <!-- Banner Selamat Datang -->
                     <div class="bg-gradient-to-r from-slate-900 via-slate-850 to-emerald-950 rounded-2xl p-6 text-white shadow-lg flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                         <div>
-                            <h3 class="text-2xl font-black flex items-center gap-2">
-                                <span>Sistem Pengurusan VCMS</span>
-                                <span class="text-xs bg-emerald-500 text-slate-950 px-2 py-1 rounded-md font-bold" x-text="'Tahun ' + selectedYear"></span>
+                            <span class="text-[10px] bg-emerald-500 text-slate-950 px-2.5 py-1 rounded-md font-bold uppercase" x-text="kariahName"></span>
+                            <h3 class="text-2xl font-black flex items-center gap-2 mt-2">
+                                <span>CASHFLOW E-SURAU</span>
+                                <span class="text-xs bg-slate-800 text-emerald-400 px-2.5 py-1 rounded-md font-bold border border-emerald-500/30" x-text="'Tahun ' + selectedYear"></span>
                             </h3>
-                            <p class="text-slate-300 text-sm mt-1">Gunakan panel carian tahun di atas untuk menapis rekod saringan lampau dan akan datang dengan pantas.</p>
+                            <p class="text-slate-300 text-sm mt-1">Ready to record today's income and expenses?</p>
                         </div>
                         <div class="flex items-center space-x-2 bg-slate-900/60 p-2.5 rounded-xl border border-slate-700">
-                            <span class="text-xs text-slate-400">Pautan Pantas:</span>
+                            <span class="text-xs text-slate-400">Saringan Aktif:</span>
                             <span class="text-xs bg-emerald-600 text-white px-2 py-0.5 rounded font-bold uppercase" x-text="selectedMonth"></span>
-                            <span class="text-xs bg-amber-500 text-slate-950 px-2 py-0.5 rounded font-bold uppercase" x-text="selectedWeek"></span>
                         </div>
                     </div>
 
-                    <!-- 3 KOTAK UTAMA (KPI CARDS - Total Income, Total Expenses, Current Balance) -->
+                    <!-- ENTRANCE SURVEY STYLE YEAR SEARCH COLUMN -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="max-w-xl mx-auto text-center space-y-4">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider"><i class="fa-solid fa-magnifying-glass text-emerald-500 mr-1"></i>Saringan Tahun Rekod Perakaunan</h4>
+                            <div class="flex items-center justify-center space-x-2 bg-slate-100 p-1.5 rounded-xl border border-slate-300 shadow-inner">
+                                <!-- Tahun Sebelumnya -->
+                                <button @click="prevYear()" title="Tahun Sebelumnya" class="p-3 text-slate-600 hover:text-slate-900 hover:bg-white rounded-lg transition text-xs font-bold shadow-sm flex items-center gap-1">
+                                    <i class="fa-solid fa-chevron-left text-[10px]"></i> Sebelumnya
+                                </button>
+                                
+                                <!-- Input Carian Tahun -->
+                                <div class="relative flex-1">
+                                    <input type="number" 
+                                           x-model.number="searchQuery" 
+                                           @keyup.enter="searchYear()" 
+                                           placeholder="Masukkan Tahun..." 
+                                           class="w-full px-4 py-2.5 text-sm font-bold text-slate-800 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-center">
+                                </div>
+
+                                <!-- Butang Carian -->
+                                <button @click="searchYear()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-lg text-xs transition shadow flex items-center gap-1">
+                                    Cari <i class="fa-solid fa-magnifying-glass text-[10px]"></i>
+                                </button>
+
+                                <!-- Tahun Seterusnya -->
+                                <button @click="nextYear()" title="Tahun Seterusnya" class="p-3 text-slate-600 hover:text-slate-900 hover:bg-white rounded-lg transition text-xs font-bold shadow-sm flex items-center gap-1">
+                                    Seterusnya <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                                </button>
+                            </div>
+                            <p class="text-[11px] text-slate-400">Masukkan sebarang tahun (cth: 2025, 2026, 2027) untuk melihat kesan pengasingan modular.</p>
+                        </div>
+                    </div>
+
+                    <!-- 3 KOTAK UTAMA KPI (Total Income, Total Expenses, Current Balance) -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <!-- Card 1: Total Income -->
-                        <div class="bg-gradient-to-br from-emerald-50 to-white p-6 rounded-2xl shadow-sm border border-emerald-100 flex items-center justify-between group hover:shadow-md transition">
+                        <div class="bg-gradient-to-br from-emerald-50 to-white p-6 rounded-2xl shadow-sm border border-emerald-100 flex items-center justify-between group hover:shadow-md transition duration-150">
                             <div class="space-y-2">
                                 <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider block">Jumlah Pendapatan (Total Income)</span>
                                 <h3 class="text-3xl font-black text-emerald-950" x-text="formatCurrency(getTotalIncome())"></h3>
-                                <p class="text-xs text-emerald-600 font-medium" x-text="'Termasuk sumbangan tabung & Jumaat (' + selectedMonth + ' ' + selectedYear + ')'"></p>
+                                <p class="text-[11px] text-emerald-600 font-medium" x-text="'Kemasukan direkodkan bagi ' + selectedMonth + ' ' + selectedYear"></p>
                             </div>
                             <div class="p-4 bg-emerald-500 text-white rounded-2xl shadow-md group-hover:scale-105 transition duration-150">
                                 <i class="fa-solid fa-circle-arrow-down text-2xl"></i>
@@ -184,11 +190,11 @@
                         </div>
 
                         <!-- Card 2: Total Expenses -->
-                        <div class="bg-gradient-to-br from-rose-50 to-white p-6 rounded-2xl shadow-sm border border-rose-100 flex items-center justify-between group hover:shadow-md transition">
+                        <div class="bg-gradient-to-br from-rose-50 to-white p-6 rounded-2xl shadow-sm border border-rose-100 flex items-center justify-between group hover:shadow-md transition duration-150">
                             <div class="space-y-2">
                                 <span class="text-xs font-bold text-rose-800 uppercase tracking-wider block">Jumlah Perbelanjaan (Total Expenses)</span>
                                 <h3 class="text-3xl font-black text-rose-950" x-text="formatCurrency(getTotalExpenses())"></h3>
-                                <p class="text-xs text-rose-600 font-medium" x-text="'Berdasarkan anggaran perbelanjaan operasi & bil'"></p>
+                                <p class="text-[11px] text-rose-600 font-medium" x-text="'Berdasarkan perbelanjaan operasi diluluskan'"></p>
                             </div>
                             <div class="p-4 bg-rose-500 text-white rounded-2xl shadow-md group-hover:scale-105 transition duration-150">
                                 <i class="fa-solid fa-circle-arrow-up text-2xl"></i>
@@ -196,11 +202,11 @@
                         </div>
 
                         <!-- Card 3: Current Balance -->
-                        <div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-2xl shadow-sm border border-blue-100 flex items-center justify-between group hover:shadow-md transition">
+                        <div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-2xl shadow-sm border border-blue-100 flex items-center justify-between group hover:shadow-md transition duration-150">
                             <div class="space-y-2">
                                 <span class="text-xs font-bold text-blue-800 uppercase tracking-wider block">Baki Semasa (Current Balance)</span>
                                 <h3 class="text-3xl font-black text-blue-950" :class="getCurrentBalance() >= 0 ? 'text-blue-950' : 'text-rose-700'" x-text="formatCurrency(getCurrentBalance())"></h3>
-                                <p class="text-xs text-blue-600 font-medium" x-text="'Kedudukan bersih akaun surau / masjid'"></p>
+                                <p class="text-[11px] text-blue-600 font-medium" x-text="'Aliran tunai bersih semasa bagi kariah'"></p>
                             </div>
                             <div class="p-4 bg-blue-500 text-white rounded-2xl shadow-md group-hover:scale-105 transition duration-150">
                                 <i class="fa-solid fa-scale-balanced text-2xl"></i>
@@ -208,216 +214,227 @@
                         </div>
                     </div>
 
-                    <!-- SEPARASI ARAS: 6 KOTAK UTAMA (Setiap Kotak Ada Pengasingan Tahun / Bulan / Minggu) -->
+                    <!-- SEPARASI ARAS: 6 KOTAK MODULAR (Dipaparkan hanya jika carian tahun telah diaktifkan) -->
                     <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <h4 class="text-md font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full"></span>
-                                6 Kotak Pengasingan Modular (Analisis Terperinci)
-                            </h4>
-                            <span class="text-xs text-slate-500 font-medium">Klik pada kotak untuk membuka modul penuh</span>
+                        <!-- Keadaan Kosong (Sebelum Carian Tahun) -->
+                        <div x-show="!showModularBoxes" class="bg-slate-100 border-2 border-dashed border-slate-300 rounded-2xl p-12 text-center space-y-3">
+                            <div class="w-16 h-16 bg-slate-200 text-slate-400 rounded-full flex items-center justify-center mx-auto text-2xl">
+                                <i class="fa-solid fa-folder-open"></i>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-700">6 Kotak Pengasingan Modular Bersedia</h4>
+                            <p class="text-sm text-slate-500 max-w-md mx-auto">Sila cari tahun perakaunan menggunakan bar sarian di atas untuk memaparkan agihan statistik modular kariah anda.</p>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            
-                            <!-- Kad 1: Anggaran -->
-                            <div @click="setTab('anggaran')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-center mb-4">
-                                        <span class="text-[10px] bg-blue-100 text-blue-800 font-extrabold px-2 py-0.5 rounded uppercase">Hasil VS Belanja</span>
-                                        <div class="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-100 transition">
-                                            <i class="fa-solid fa-chart-pie"></i>
-                                        </div>
-                                    </div>
-                                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider">1. Kotak Anggaran</h4>
-                                    
-                                    <!-- Pengasingan 3 Aras dalam kad -->
-                                    <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Tahunan (<span x-text="selectedYear"></span>):</span>
-                                            <span class="font-bold text-slate-800" x-text="formatCurrency(getAnnualBudget())"></span>
-                                        </div>
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Bulanan (<span x-text="selectedMonth"></span>):</span>
-                                            <span class="font-bold text-blue-600" x-text="formatCurrency(data[selectedYear][selectedMonth].anggaran.hasil)"></span >
-                                        </div>
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Mingguan (<span x-text="selectedWeek"></span>):</span>
-                                            <span class="font-bold text-slate-600" x-text="formatCurrency(data[selectedYear][selectedMonth].anggaran.hasil / 4)"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-4 text-right">
-                                    <span class="text-[11px] text-blue-600 font-bold group-hover:underline">Buka Saringan &rarr;</span>
-                                </div>
+                        <!-- 6 Kotak Modular Selepas Saringan Carian Cepat -->
+                        <div x-show="showModularBoxes" x-transition class="space-y-4">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span>
+                                    Saringan Pengasingan Kotak Modular Kewangan (Tiada Nombor Awalan)
+                                </h4>
                             </div>
 
-                            <!-- Kad 2: Buku Tunai -->
-                            <div @click="setTab('bukutunai')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-emerald-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-center mb-4">
-                                        <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded uppercase">Aliran Tunai Sebenar</span>
-                                        <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg group-hover:bg-emerald-100 transition">
-                                            <i class="fa-solid fa-book-open"></i>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                
+                                <!-- Kad: Anggaran -->
+                                <div @click="setTab('anggaran')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-blue-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span class="text-[10px] bg-blue-100 text-blue-800 font-extrabold px-2 py-0.5 rounded uppercase">Hasil VS Belanja</span>
+                                            <div class="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-100 transition">
+                                                <i class="fa-solid fa-chart-pie"></i>
+                                            </div>
+                                        </div>
+                                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Anggaran</h4>
+                                        
+                                        <!-- Pengasingan 3 Aras (Tahun, Bulan, Minggu) -->
+                                        <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Tahun ke Tahun (<span x-text="selectedYear"></span>):</span>
+                                                <span class="font-bold text-slate-800" x-text="formatCurrency(getAnnualBudget())"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Bulan ke Bulan (<span x-text="selectedMonth"></span>):</span>
+                                                <span class="font-bold text-blue-600" x-text="formatCurrency(data[selectedYear][selectedMonth].anggaran.hasil)"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Minggu ke Minggu (<span x-text="selectedWeek"></span>):</span>
+                                                <span class="font-bold text-slate-600" x-text="formatCurrency(data[selectedYear][selectedMonth].anggaran.hasil / 4)"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider">2. Kotak Buku Tunai</h4>
-                                    
-                                    <!-- Pengasingan 3 Aras dalam kad -->
-                                    <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Baki Tahunan (<span x-text="selectedYear"></span>):</span>
-                                            <span class="font-bold text-slate-800" x-text="formatCurrency(getAnnualCashBalance())"></span>
-                                        </div>
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Baki Bulanan (<span x-text="selectedMonth"></span>):</span>
-                                            <span class="font-bold text-emerald-600" x-text="formatCurrency(data[selectedYear][selectedMonth].bukuTunai.bakiAkhir)"></span>
-                                        </div>
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Mingguan (Anggaran):</span>
-                                            <span class="font-bold text-slate-600" x-text="formatCurrency(data[selectedYear][selectedMonth].bukuTunai.bakiAkhir / 4)"></span>
-                                        </div>
+                                    <div class="mt-4 text-right">
+                                        <span class="text-[11px] text-blue-600 font-bold group-hover:underline">Buka Saringan &rarr;</span>
                                     </div>
                                 </div>
-                                <div class="mt-4 text-right">
-                                    <span class="text-[11px] text-emerald-600 font-bold group-hover:underline">Buka Saringan &rarr;</span>
-                                </div>
-                            </div>
 
-                            <!-- Kad 3: Kutipan Tabung (Khas Saringan Mingguan) -->
-                            <div @click="setTab('tabung')" class="bg-amber-50/60 p-6 rounded-2xl shadow-sm border border-amber-200 hover:shadow-md hover:border-amber-400 transition duration-150 cursor-pointer group flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-center mb-4">
-                                        <span class="text-[10px] bg-amber-100 text-amber-800 font-extrabold px-2 py-0.5 rounded uppercase">Agihan Peti Mingguan</span>
-                                        <div class="p-2 bg-amber-100 text-amber-700 rounded-lg group-hover:bg-amber-200 transition">
-                                            <i class="fa-solid fa-box-archive"></i>
+                                <!-- Kad: Buku Tunai -->
+                                <div @click="setTab('bukutunai')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-emerald-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded uppercase">Aliran Tunai Sebenar</span>
+                                            <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg group-hover:bg-emerald-100 transition">
+                                                <i class="fa-solid fa-book-open"></i>
+                                            </div>
+                                        </div>
+                                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Buku Tunai</h4>
+                                        
+                                        <!-- Pengasingan 3 Aras (Tahun, Bulan, Minggu) -->
+                                        <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Tahun ke Tahun (<span x-text="selectedYear"></span>):</span>
+                                                <span class="font-bold text-slate-800" x-text="formatCurrency(getAnnualCashBalance())"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Bulan ke Bulan (<span x-text="selectedMonth"></span>):</span>
+                                                <span class="font-bold text-emerald-600" x-text="formatCurrency(data[selectedYear][selectedMonth].bukuTunai.bakiAkhir)"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Minggu ke Minggu (Anggaran):</span>
+                                                <span class="font-bold text-slate-600" x-text="formatCurrency(data[selectedYear][selectedMonth].bukuTunai.bakiAkhir / 4)"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <h4 class="text-sm font-bold text-amber-900 uppercase tracking-wider">3. Kotak Kutipan Tabung</h4>
-                                    
-                                    <!-- Pengasingan 3 Aras dalam kad -->
-                                    <div class="mt-4 space-y-2 border-t border-amber-200/40 pt-3">
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-amber-800">Tahunan (<span x-text="selectedYear"></span>):</span>
-                                            <span class="font-bold text-amber-950" x-text="formatCurrency(getAnnualTabungTotal())"></span>
-                                        </div>
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-amber-800">Bulanan (<span x-text="selectedMonth"></span>):</span>
-                                            <span class="font-bold text-amber-950" x-text="formatCurrency(getMonthlyTabungTotal())"></span>
-                                        </div>
-                                        <div class="flex justify-between text-xs bg-amber-100/50 p-1.5 rounded border border-amber-200">
-                                            <span class="text-amber-900 font-bold">Khas Mingguan (<span x-text="selectedWeek"></span>):</span>
-                                            <span class="font-black text-amber-950" x-text="formatCurrency(getWeeklyTabungTotal())"></span>
-                                        </div>
+                                    <div class="mt-4 text-right">
+                                        <span class="text-[11px] text-emerald-600 font-bold group-hover:underline">Buka Saringan &rarr;</span>
                                     </div>
                                 </div>
-                                <div class="mt-4 text-right">
-                                    <span class="text-[11px] text-amber-800 font-bold group-hover:underline">Buka Saringan &rarr;</span>
-                                </div>
-                            </div>
 
-                            <!-- Kad 4: Kutipan Jumaat -->
-                            <div @click="setTab('jumaat')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-indigo-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-center mb-4">
-                                        <span class="text-[10px] bg-indigo-100 text-indigo-800 font-extrabold px-2 py-0.5 rounded uppercase">Sumbangan Mingguan</span>
-                                        <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg group-hover:bg-indigo-100 transition">
-                                            <i class="fa-solid fa-calendar-check"></i>
+                                <!-- Kad: Kutipan Tabung -->
+                                <div @click="setTab('tabung')" class="bg-amber-50/60 p-6 rounded-2xl shadow-sm border border-amber-200 hover:shadow-md hover:border-amber-400 transition duration-150 cursor-pointer group flex flex-col justify-between">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span class="text-[10px] bg-amber-100 text-amber-800 font-extrabold px-2 py-0.5 rounded uppercase">Agihan Peti Mingguan</span>
+                                            <div class="p-2 bg-amber-100 text-amber-700 rounded-lg group-hover:bg-amber-200 transition">
+                                                <i class="fa-solid fa-box-archive"></i>
+                                            </div>
+                                        </div>
+                                        <h4 class="text-sm font-bold text-amber-900 uppercase tracking-wider">Kutipan Tabung</h4>
+                                        
+                                        <!-- Pengasingan 3 Aras (Tahun, Bulan, Minggu) -->
+                                        <div class="mt-4 space-y-2 border-t border-amber-200/40 pt-3">
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-amber-800">Tahun ke Tahun (<span x-text="selectedYear"></span>):</span>
+                                                <span class="font-bold text-amber-950" x-text="formatCurrency(getAnnualTabungTotal())"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-amber-800">Bulan ke Bulan (<span x-text="selectedMonth"></span>):</span>
+                                                <span class="font-bold text-amber-950" x-text="formatCurrency(getMonthlyTabungTotal())"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs bg-amber-100/50 p-1.5 rounded border border-amber-200">
+                                                <span class="text-amber-900 font-bold">Minggu ke Minggu (<span x-text="selectedWeek"></span>):</span>
+                                                <span class="font-black text-amber-950" x-text="formatCurrency(getWeeklyTabungTotal())"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider">4. Kotak Kutipan Jumaat</h4>
-                                    
-                                    <!-- Pengasingan 3 Aras dalam kad -->
-                                    <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Tahunan (<span x-text="selectedYear"></span>):</span>
-                                            <span class="font-bold text-slate-800" x-text="formatCurrency(getAnnualJumaatTotal())"></span>
-                                        </div>
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Bulanan (<span x-text="selectedMonth"></span>):</span>
-                                            <span class="font-bold text-indigo-600" x-text="formatCurrency(getJumaatTotal())"></span>
-                                        </div>
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Purata Mingguan:</span>
-                                            <span class="font-bold text-slate-600" x-text="formatCurrency(getJumaatTotal() / data[selectedYear][selectedMonth].kutipanJumaat.length)"></span>
-                                        </div>
+                                    <div class="mt-4 text-right">
+                                        <span class="text-[11px] text-amber-800 font-bold group-hover:underline">Buka Saringan &rarr;</span>
                                     </div>
                                 </div>
-                                <div class="mt-4 text-right">
-                                    <span class="text-[11px] text-indigo-600 font-bold group-hover:underline">Buka Saringan &rarr;</span>
-                                </div>
-                            </div>
 
-                            <!-- Kad 5: Laporan Kewangan Bulanan -->
-                            <div @click="setTab('laporan')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-purple-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-center mb-4">
-                                        <span class="text-[10px] bg-purple-100 text-purple-800 font-extrabold px-2 py-0.5 rounded uppercase">Trend & Analisis</span>
-                                        <div class="p-2 bg-purple-50 text-purple-600 rounded-lg group-hover:bg-purple-100 transition">
-                                            <i class="fa-solid fa-chart-line"></i>
+                                <!-- Kad: Kutipan Jumaat -->
+                                <div @click="setTab('jumaat')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-indigo-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span class="text-[10px] bg-indigo-100 text-indigo-800 font-extrabold px-2 py-0.5 rounded uppercase">Sumbangan Mingguan</span>
+                                            <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg group-hover:bg-indigo-100 transition">
+                                                <i class="fa-solid fa-calendar-check"></i>
+                                            </div>
+                                        </div>
+                                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Kutipan Jumaat</h4>
+                                        
+                                        <!-- Pengasingan 3 Aras (Tahun, Bulan, Minggu) -->
+                                        <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Tahun ke Tahun (<span x-text="selectedYear"></span>):</span>
+                                                <span class="font-bold text-slate-800" x-text="formatCurrency(getAnnualJumaatTotal())"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Bulan ke Bulan (<span x-text="selectedMonth"></span>):</span>
+                                                <span class="font-bold text-indigo-600" x-text="formatCurrency(getJumaatTotal())"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Minggu ke Minggu (Purata):</span>
+                                                <span class="font-bold text-slate-600" x-text="formatCurrency(getJumaatTotal() / data[selectedYear][selectedMonth].kutipanJumaat.length)"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider">5. Kotak Laporan Kewangan</h4>
-                                    
-                                    <!-- Pengasingan 3 Aras dalam kad -->
-                                    <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Surplus Setahun (<span x-text="selectedYear"></span>):</span>
-                                            <span class="font-bold text-slate-800" x-text="formatCurrency(getAnnualSurplus())"></span>
-                                        </div>
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Surplus Sebulan (<span x-text="selectedMonth"></span>):</span>
-                                            <span class="font-bold text-purple-600" x-text="formatCurrency(data[selectedYear][selectedMonth].bukuTunai.jumlahMasuk - data[selectedYear][selectedMonth].anggaran.belanja)"></span>
-                                        </div>
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Trend Minggu:</span>
-                                            <span class="font-semibold text-emerald-600">Aliran Positif</span>
-                                        </div>
+                                    <div class="mt-4 text-right">
+                                        <span class="text-[11px] text-indigo-600 font-bold group-hover:underline">Buka Saringan &rarr;</span>
                                     </div>
                                 </div>
-                                <div class="mt-4 text-right">
-                                    <span class="text-[11px] text-purple-600 font-bold group-hover:underline">Buka Saringan &rarr;</span>
-                                </div>
-                            </div>
 
-                            <!-- Kad 6: Penyata Kewangan Bulanan -->
-                            <div @click="setTab('penyata')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-rose-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-center mb-4">
-                                        <span class="text-[10px] bg-rose-100 text-rose-800 font-extrabold px-2 py-0.5 rounded uppercase">Penyata Rasmi Audit</span>
-                                        <div class="p-2 bg-rose-50 text-rose-600 rounded-lg group-hover:bg-rose-100 transition">
-                                            <i class="fa-solid fa-file-invoice-dollar"></i>
+                                <!-- Kad: Laporan Kewangan -->
+                                <div @click="setTab('laporan')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-purple-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span class="text-[10px] bg-purple-100 text-purple-800 font-extrabold px-2 py-0.5 rounded uppercase">Trend & Analisis</span>
+                                            <div class="p-2 bg-purple-50 text-purple-600 rounded-lg group-hover:bg-purple-100 transition">
+                                                <i class="fa-solid fa-chart-line"></i>
+                                            </div>
+                                        </div>
+                                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Laporan Kewangan</h4>
+                                        
+                                        <!-- Pengasingan 3 Aras (Tahun, Bulan, Minggu) -->
+                                        <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Tahun ke Tahun (<span x-text="selectedYear"></span>):</span>
+                                                <span class="font-bold text-slate-800" x-text="formatCurrency(getAnnualSurplus())"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Bulan ke Bulan (<span x-text="selectedMonth"></span>):</span>
+                                                <span class="font-bold text-purple-600" x-text="formatCurrency(data[selectedYear][selectedMonth].bukuTunai.jumlahMasuk - data[selectedYear][selectedMonth].anggaran.belanja)"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Minggu ke Minggu (Trend):</span>
+                                                <span class="font-semibold text-emerald-600">Aliran Positif</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-wider">6. Kotak Penyata Kewangan</h4>
-                                    
-                                    <!-- Pengasingan 3 Aras dalam kad -->
-                                    <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Status Penyata Tahun:</span>
-                                            <span class="font-bold text-slate-800" x-text="selectedYear"></span>
-                                        </div>
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Status Penyata Bulan:</span>
-                                            <span class="font-bold text-rose-600" x-text="selectedMonth"></span>
-                                        </div>
-                                        <div class="flex justify-between text-xs">
-                                            <span class="text-slate-500">Status Penyata Minggu:</span>
-                                            <span class="font-semibold text-slate-700">Lengkap</span>
-                                        </div>
+                                    <div class="mt-4 text-right">
+                                        <span class="text-[11px] text-purple-600 font-bold group-hover:underline">Buka Saringan &rarr;</span>
                                     </div>
                                 </div>
-                                <div class="mt-4 text-right">
-                                    <span class="text-[11px] text-rose-600 font-bold group-hover:underline">Buka Saringan &rarr;</span>
-                                </div>
-                            </div>
 
+                                <!-- Kad: Penyata Kewangan -->
+                                <div @click="setTab('penyata')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-rose-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span class="text-[10px] bg-rose-100 text-rose-800 font-extrabold px-2 py-0.5 rounded uppercase">Penyata Rasmi Audit</span>
+                                            <div class="p-2 bg-rose-50 text-rose-600 rounded-lg group-hover:bg-rose-100 transition">
+                                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                                            </div>
+                                        </div>
+                                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Penyata Kewangan</h4>
+                                        
+                                        <!-- Pengasingan 3 Aras (Tahun, Bulan, Minggu) -->
+                                        <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Tahun ke Tahun:</span>
+                                                <span class="font-bold text-slate-800" x-text="selectedYear"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Bulan ke Bulan:</span>
+                                                <span class="font-bold text-rose-600" x-text="selectedMonth"></span>
+                                            </div>
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Minggu ke Minggu:</span>
+                                                <span class="font-semibold text-slate-700">Lengkap</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 text-right">
+                                        <span class="text-[11px] text-rose-600 font-bold group-hover:underline">Buka Saringan &rarr;</span>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
-                <!-- ================== TAB 1: ANGGARAN (BULANAN/TAHUNAN/MINGGUAN) ================== -->
+                <!-- ================== TAB: ANGGARAN ================== -->
                 <div x-show="activeTab === 'anggaran'" x-cloak class="space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                         <div class="flex justify-between items-center mb-6">
@@ -445,7 +462,7 @@
                     </div>
                 </div>
 
-                <!-- ================== TAB 2: BUKU TUNAI (BULANAN/TAHUNAN/MINGGUAN) ================== -->
+                <!-- ================== TAB: BUKU TUNAI ================== -->
                 <div x-show="activeTab === 'bukutunai'" x-cloak class="space-y-6">
                     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                         <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
@@ -454,7 +471,7 @@
                                 <p class="text-sm text-slate-500" x-text="'Daftar kemasukan dan perbelanjaan bagi ' + selectedMonth + ' ' + selectedYear"></p>
                             </div>
                             <div class="flex space-x-3 text-sm text-right">
-                                <span class="bg-emerald-50 text-emerald-800 px-3 py-1 rounded-lg border border-emerald-200 font-semibold animate-pulse" x-text="'Baki Akhir: ' + formatCurrency(data[selectedYear][selectedMonth].bukuTunai.bakiAkhir)"></span>
+                                <span class="bg-emerald-50 text-emerald-800 px-3 py-1 rounded-lg border border-emerald-200 font-semibold" x-text="'Baki Akhir: ' + formatCurrency(data[selectedYear][selectedMonth].bukuTunai.bakiAkhir)"></span>
                             </div>
                         </div>
                         <div class="overflow-x-auto">
@@ -486,7 +503,7 @@
                     </div>
                 </div>
 
-                <!-- ================== TAB 3: KUTIPAN TABUNG (Saringan MINGGUAN Khas) ================== -->
+                <!-- ================== TAB: KUTIPAN TABUNG (Saringan MINGGUAN Khas) ================== -->
                 <div x-show="activeTab === 'tabung'" x-cloak class="space-y-6">
                     <div class="bg-amber-50/50 p-6 rounded-2xl border border-amber-200">
                         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -563,7 +580,7 @@
                     </div>
                 </div>
 
-                <!-- ================== TAB 4: KUTIPAN JUMAAT (BULANAN) ================== -->
+                <!-- ================== TAB: KUTIPAN JUMAAT ================== -->
                 <div x-show="activeTab === 'jumaat'" x-cloak class="space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                         <div class="flex justify-between items-center mb-6">
@@ -595,7 +612,7 @@
                     </div>
                 </div>
 
-                <!-- ================== TAB 5: LAPORAN KEWANGAN BULANAN (Bulan ke Bulan) ================== -->
+                <!-- ================== TAB: LAPORAN BULANAN ================== -->
                 <div x-show="activeTab === 'laporan'" x-cloak class="space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                         <h3 class="text-lg font-bold text-slate-800 mb-2">Laporan Rumusan & Perbandingan Bulan ke Bulan</h3>
@@ -629,12 +646,12 @@
                     </div>
                 </div>
 
-                <!-- ================== TAB 6: PENYATA KEWANGAN BULANAN ================== -->
+                <!-- ================== TAB: PENYATA BULANAN ================== -->
                 <div x-show="activeTab === 'penyata'" x-cloak class="space-y-6">
                     <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 max-w-4xl mx-auto" id="print-area">
                         <!-- Kepala Penyata Audit -->
                         <div class="text-center border-b-2 border-double border-slate-800 pb-6 mb-6">
-                            <h2 class="text-xl font-bold uppercase tracking-wider text-slate-900">MASJID AL-KARIAH KUALA LUMPUR</h2>
+                            <h2 class="text-xl font-bold uppercase tracking-wider text-slate-900" x-text="kariahName"></h2>
                             <p class="text-xs text-slate-600 mt-1">Sistem Pengurusan VCMS - Kedudukan Kewangan</p>
                             <h3 class="text-md font-bold uppercase mt-4 text-emerald-800" x-text="'PENYATA PENERIMAAN DAN PEMBAYARAN BAGI BULAN ' + selectedMonth + ' ' + selectedYear"></h3>
                         </div>
@@ -738,6 +755,8 @@
                 selectedMonth: 'Jun',
                 selectedWeek: 'Minggu 1',
                 searchQuery: 2026,
+                kariahName: 'Surau Al-Falahiah KV Kajang',
+                showModularBoxes: false, // Disembunyikan secara lalai (kosong sahaja pada halaman permulaan)
                 charts: {},
                 
                 // MOCK DATABASE KEWANGAN DIASINGKAN MENGIKUT TAHUN, BULAN & MINGGU
@@ -804,7 +823,7 @@
                             kutipanTabung: {
                                 'Minggu 1': { tabungAm: 1600, tabungKebajikan: 1100, tabungPembangunan: 1300, tabungPendidikan: 700 },
                                 'Minggu 2': { tabungAm: 1700, tabungKebajikan: 1200, tabungPembangunan: 1400, tabungPendidikan: 800 },
-                                'Minggu 3': { tabungAm: 1800, tabungKebajikan: 1300, tabungPembangunan: 1500, tabungPendidikan: 900 },
+                                'Minggu 3': { tabungAm: 1800, text: 1300, tabungPembangunan: 1500, tabungPendidikan: 900 },
                                 'Minggu 4': { tabungAm: 1900, tabungKebajikan: 1400, tabungPembangunan: 1600, tabungPendidikan: 1000 }
                             },
                             kutipanJumaat: [2800, 3100, 2900, 3200]
@@ -936,6 +955,22 @@
                     }
                 },
 
+                // MEMULAKAN SISTEM & BACA KETETAPAN DARI LOCAL STORAGE (PORTAL INTEGRATION)
+                initApp() {
+                    const savedKariah = localStorage.getItem('vcms_selected_kariah');
+                    const savedYear = localStorage.getItem('vcms_selected_year');
+                    
+                    if (savedKariah) {
+                        this.kariahName = savedKariah;
+                    }
+                    if (savedYear) {
+                        this.selectedYear = savedYear;
+                        this.searchQuery = parseInt(savedYear);
+                    }
+                    
+                    this.initCharts();
+                },
+
                 // ATUR NAVIGASI TAB MENU UTAMA
                 setTab(tab) {
                     this.activeTab = tab;
@@ -955,16 +990,17 @@
                 searchYear() {
                     let targetYear = String(this.searchQuery);
                     
-                    // Sekiranya tahun yang dicari tiada dalam database, hasilkan data templat automatik
+                    // Sekiranya tahun yang dicari tiada dalam database, hasilkan data templat automatik secara dinamik
                     if (!this.data[targetYear]) {
                         this.data[targetYear] = this.generateBlankYearData(targetYear);
                     }
                     
                     this.selectedYear = targetYear;
+                    this.showModularBoxes = true; // Pendedahan 6 kotak modular selepas saringan carian berjaya
                     this.updateData();
                 },
 
-                // Navigasi Tahun
+                // Navigasi Tahun (Lompat Sebelum/Selepas)
                 prevYear() {
                     let current = parseInt(this.selectedYear);
                     this.searchQuery = current - 1;
@@ -1004,17 +1040,14 @@
 
                 // LOGIK KIRAAN 3 BOX UTAMA DASHBOARD (TOTAL INCOME, TOTAL EXPENSES, CURRENT BALANCE)
                 getTotalIncome() {
-                    // Berdasarkan Buku Tunai bulan rujukan aktif
                     return this.data[this.selectedYear][this.selectedMonth].bukuTunai.jumlahMasuk;
                 },
 
                 getTotalExpenses() {
-                    // Berdasarkan Anggaran Belanja (Belanja Operasi/Expenses) bagi bulan aktif
                     return this.data[this.selectedYear][this.selectedMonth].anggaran.belanja;
                 },
 
                 getCurrentBalance() {
-                    // Income - Expenses
                     return this.getTotalIncome() - this.getTotalExpenses();
                 },
 
@@ -1096,12 +1129,12 @@
                 getTabTitle() {
                     switch(this.activeTab) {
                         case 'dashboard': return 'Dashboard Utama';
-                        case 'anggaran': return '1. Saringan Anggaran';
-                        case 'bukutunai': return '2. Saringan Buku Tunai';
-                        case 'tabung': return '3. Saringan Tabung';
-                        case 'jumaat': return '4. Saringan Kutipan Jumaat';
-                        case 'laporan': return '5. Saringan Laporan Bulanan';
-                        case 'penyata': return '6. Saringan Penyata Rasmi';
+                        case 'anggaran': return 'Saringan Anggaran';
+                        case 'bukutunai': return 'Saringan Buku Tunai';
+                        case 'tabung': return 'Saringan Tabung Mingguan';
+                        case 'jumaat': return 'Saringan Kutipan Jumaat';
+                        case 'laporan': return 'Saringan Laporan Bulanan';
+                        case 'penyata': return 'Saringan Penyata Rasmi';
                         default: return 'Sistem VCMS';
                     }
                 },
@@ -1275,7 +1308,7 @@
                         const m_data = this.data[this.selectedYear][this.selectedMonth].kutipanTabung[this.selectedWeek];
                         if (this.charts.tabung) this.charts.tabung.destroy();
                         this.charts.tabung = new Chart(ctxTabung, {
-                            type: 'doughnut',
+           +                 type: 'doughnut',
                             data: {
                                 labels: ['Am/Sewa', 'Kebajikan', 'Pembangunan', 'Pendidikan'],
                                 datasets: [{
