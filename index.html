@@ -10,7 +10,6 @@
 <body class="bg-gray-100 font-sans antialiased">
 
     <div class="flex h-screen">
-        <!-- SIDEBAR -->
         <div class="bg-slate-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out shadow-lg">
             <div class="flex items-center space-x-2 px-4 justify-center">
                 <i class="fa-solid fa-mosque text-2xl text-emerald-400"></i>
@@ -35,7 +34,6 @@
             </nav>
         </div>
 
-        <!-- MAIN CONTENT AREA -->
         <div class="flex-1 flex flex-col overflow-y-auto">
             <header class="bg-white shadow-sm border-b border-gray-200 py-4 px-6 flex justify-between items-center">
                 <div class="flex items-center space-x-2">
@@ -60,7 +58,6 @@
                     </a>
                 </div>
 
-                <!-- KAD RINGKASAN -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
                         <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Jumlah Pendapatan (Bulan Ini)</p>
@@ -78,7 +75,6 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
-                    <!-- REKOD TRANSAKSI BARU -->
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 h-fit">
                         <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-plus-minus mr-2 text-emerald-500"></i>Rekod Transaksi Baru</h3>
                         
@@ -112,44 +108,38 @@
                         </form>
                     </div>
 
-                    <!-- JADUAL TRANSAKSI DENGAN CARIAN TAHUN -->
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 lg:col-span-2">
                         
-                        <!-- KEMASKINI BAHAGIAN ATAS JADUAL: SEARCHABLE DROPDOWN TAHUN -->
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                             <h3 class="text-lg font-bold text-gray-800">
                                 <i class="fa-solid fa-list-check mr-2 text-emerald-500"></i>Sejarah Transaksi Terkini
                             </h3>
                             
                             <div class="flex items-center space-x-2 w-full sm:w-auto">
-                                <!-- INPUT CARIAN TAHUN -->
-                                <div class="relative w-full sm:w-44">
+                                <div class="relative w-full sm:w-48 z-10">
                                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
                                         <i class="fa-solid fa-magnifying-glass text-xs"></i>
                                     </span>
                                     <input 
-                                        list="years-list" 
+                                        type="text"
                                         id="search-year-input" 
-                                        placeholder="Cari tahun..." 
-                                        value="2026"
-                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block pl-8 pr-3 py-1.5 font-medium shadow-sm placeholder-gray-400"
+                                        placeholder="Taip & cari tahun..." 
+                                        autocomplete="off"
+                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block pl-8 pr-7 py-1.5 font-medium shadow-sm"
                                     >
-                                    <!-- SENARAI PILIHAN TAHUN (DATALIST) -->
-                                    <datalist id="years-list">
-                                        <option value="2026">Tahun 2026</option>
-                                        <option value="2025">Tahun 2025</option>
-                                        <option value="2024">Tahun 2024</option>
-                                        <option value="2023">Tahun 2023</option>
-                                        <option value="2022">Tahun 2022</option>
-                                    </datalist>
+                                    <button id="clear-search" class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-gray-400 hover:text-gray-600 hidden">
+                                        <i class="fa-solid fa-circle-xmark text-xs"></i>
+                                    </button>
+
+                                    <div id="dropdown-years" class="absolute w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg hidden max-h-48 overflow-y-auto">
+                                        </div>
                                 </div>
                                 <span class="text-xs bg-slate-100 px-2.5 py-1.5 rounded-full text-gray-600 font-medium whitespace-nowrap">Jun 2026</span>
                             </div>
                         </div>
 
-                        <!-- JADUAL DATA -->
                         <div class="overflow-x-auto">
-                            <table class="w-full text-sm text-left text-gray-500">
+                            <table class="w-full text-sm text-left text-gray-500" id="transaction-table">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
                                     <tr>
                                         <th class="px-4 py-3">Tarikh</th>
@@ -158,27 +148,27 @@
                                         <th class="px-4 py-3 text-right">Jumlah</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-100">
-                                    <tr class="hover:bg-gray-50">
+                                <tbody class="divide-y divide-gray-100" id="table-body">
+                                    <tr class="hover:bg-gray-50" data-year="2026">
                                         <td class="px-4 py-3.5 text-gray-600">05/06/2026</td>
                                         <td class="px-4 py-3.5 font-medium text-gray-900">Kutipan Tabung Jumaat</td>
                                         <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-medium">Masuk</span></td>
                                         <td class="px-4 py-3.5 text-right font-semibold text-emerald-600">+ RM 1,850.00</td>
                                     </tr>
-                                    <tr class="hover:bg-gray-50">
+                                    <tr class="hover:bg-gray-50" data-year="2026">
                                         <td class="px-4 py-3.5 text-gray-600">12/06/2026</td>
                                         <td class="px-4 py-3.5 font-medium text-gray-900">Bayaran Bil Elektrik & Utiliti</td>
                                         <td class="px-4 py-3.5"><span class="bg-rose-100 text-rose-800 text-xs px-2 py-0.5 rounded-full font-medium">Keluar</span></td>
                                         <td class="px-4 py-3.5 text-right font-semibold text-rose-600">- RM 450.50</td>
                                     </tr>
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-3.5 text-gray-600">18/06/2026</td>
+                                    <tr class="hover:bg-gray-50" data-year="2025">
+                                        <td class="px-4 py-3.5 text-gray-600">18/06/2025</td>
                                         <td class="px-4 py-3.5 font-medium text-gray-900">Sumbangan Awam Tabung Khas</td>
                                         <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-medium">Masuk</span></td>
                                         <td class="px-4 py-3.5 text-right font-semibold text-emerald-600">+ RM 3,210.00</td>
                                     </tr>
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-3.5 text-gray-600">22/06/2026</td>
+                                    <tr class="hover:bg-gray-50" data-year="2024">
+                                        <td class="px-4 py-3.5 text-gray-600">22/06/2024</td>
                                         <td class="px-4 py-3.5 font-medium text-gray-900">Penyelenggaraan & Baiki Paip</td>
                                         <td class="px-4 py-3.5"><span class="bg-rose-100 text-rose-800 text-xs px-2 py-0.5 rounded-full font-medium">Keluar</span></td>
                                         <td class="px-4 py-3.5 text-right font-semibold text-rose-600">- RM 830.00</td>
@@ -193,5 +183,111 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-year-input');
+            const dropdown = document.getElementById('dropdown-years');
+            const clearBtn = document.getElementById('clear-search');
+            const tableRows = document.querySelectorAll('#table-body tr');
+            const tableBody = document.getElementById('table-body');
+
+            // 1. Ekstrak tahun unik yang benar-benar wujud dalam data jadual secara automatik
+            function getAvailableYears() {
+                const years = new Set();
+                tableRows.forEach(row => {
+                    const yr = row.getAttribute('data-year');
+                    if(yr) years.add(yr);
+                });
+                return Array.from(years).sort((a, b) => b - a); // Susun tahun dari terbaru
+            }
+
+            const availableYears = getAvailableYears();
+
+            // 2. Papar/Bina senarai dropdown berdasarkan carian input
+            function buildDropdown(filterText = '') {
+                dropdown.innerHTML = '';
+                const filtered = availableYears.filter(year => year.includes(filterText));
+
+                if (filtered.length === 0) {
+                    dropdown.innerHTML = `<div class="px-3 py-2 text-xs text-gray-400 italic">Tahun tidak ditemui</div>`;
+                    return;
+                }
+
+                filtered.forEach(year => {
+                    const option = document.createElement('div');
+                    option.className = 'px-3 py-2 text-xs text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer font-medium transition-colors';
+                    option.textContent = `Tahun ${year}`;
+                    option.addEventListener('click', () => {
+                        searchInput.value = year;
+                        dropdown.classList.add('hidden');
+                        filterTable(year);
+                        clearBtn.classList.remove('hidden');
+                    });
+                    dropdown.appendChild(option);
+                });
+            }
+
+            // 3. Fungsi utama menapis baris jadual
+            function filterTable(selectedYear) {
+                let hasData = false;
+                
+                // Buang mesej "tiada rekod" jika ada sebelum menapis semula
+                const emptyRow = document.getElementById('no-record-row');
+                if(emptyRow) emptyRow.remove();
+
+                tableRows.forEach(row => {
+                    const rowYear = row.getAttribute('data-year');
+                    if (!selectedYear || rowYear === selectedYear) {
+                        row.classList.remove('hidden');
+                        hasData = true;
+                    } else {
+                        row.classList.add('hidden');
+                    }
+                });
+
+                // Papar mesej jika carian tahun tiada data langsung
+                if (!hasData) {
+                    const tr = document.createElement('tr');
+                    tr.id = 'no-record-row';
+                    tr.className = 'text-center text-gray-400 italic';
+                    tr.innerHTML = `<td colspan="4" class="py-8 text-xs">Tiada rekod transaksi ditemui untuk tahun ${selectedYear}</td>`;
+                    tableBody.appendChild(tr);
+                }
+            }
+
+            // Event listener semasa pengguna klik atau menaip pada input
+            searchInput.addEventListener('focus', () => {
+                buildDropdown(searchInput.value);
+                dropdown.classList.remove('hidden');
+            });
+
+            searchInput.addEventListener('input', () => {
+                buildDropdown(searchInput.value);
+                dropdown.classList.remove('hidden');
+                if(searchInput.value) {
+                    clearBtn.classList.remove('hidden');
+                    filterTable(searchInput.value); // Tapis terus semasa menaip
+                } else {
+                    clearBtn.classList.add('hidden');
+                    filterTable(''); // Papar semua jika kosong
+                }
+            });
+
+            // Butang padam carian (X)
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                clearBtn.classList.add('hidden');
+                dropdown.classList.add('hidden');
+                filterTable('');
+            });
+
+            // Tutup dropdown apabila pengguna klik di luar kawasan carian
+            document.addEventListener('click', (e) => {
+                if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
