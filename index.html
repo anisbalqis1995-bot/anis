@@ -57,7 +57,7 @@
                     <h1 class="text-xl font-bold text-gray-800">Penjejakan Kewangan & Buku Tunai</h1>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <span class="text-sm text-gray-500"><i class="fa-regular fa-calendar mr-1"></i> Jun 2026</span>
+                    <span class="text-sm text-gray-500"><i class="fa-regular fa-calendar mr-1"></i> Pengurusan Rekod Global</span>
                     <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold">
                         A
                     </div>
@@ -74,16 +74,16 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
-                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Jumlah Pendapatan (Bulan Ini)</p>
-                        <p class="text-2xl font-bold text-emerald-600 mt-1">+ RM 5,420.00</p>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Jumlah Pendapatan Keseluruhan</p>
+                        <p class="text-2xl font-bold text-emerald-600 mt-1">+ RM 10,480.00</p>
                     </div>
                     <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
-                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Jumlah Perbelanjaan (Bulan Ini)</p>
-                        <p class="text-2xl font-bold text-rose-600 mt-1">- RM 1,280.50</p>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Jumlah Perbelanjaan Keseluruhan</p>
+                        <p class="text-2xl font-bold text-rose-600 mt-1">- RM 2,561.00</p>
                     </div>
                     <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 bg-emerald-50/50">
-                        <p class="text-xs font-semibold text-emerald-800 uppercase tracking-wider">Baki Bersih Buku Tunai</p>
-                        <p class="text-2xl font-extrabold text-slate-900 mt-1">RM 12,350.40</p>
+                        <p class="text-xs font-semibold text-emerald-800 uppercase tracking-wider">Baki Bersih Semasa Buku Tunai</p>
+                        <p class="text-2xl font-extrabold text-slate-900 mt-1">RM 7,919.00</p>
                     </div>
                 </div>
 
@@ -112,7 +112,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Tarikh</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Tarikh Penuh</label>
                                 <input type="date" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
                             </div>
 
@@ -125,19 +125,22 @@
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 lg:col-span-2">
                         
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                            <h3 class="text-lg font-bold text-gray-800">
-                                <i class="fa-solid fa-list-check mr-2 text-emerald-500"></i>Sejarah Transaksi Terkini
-                            </h3>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">
+                                    <i class="fa-solid fa-list-check mr-2 text-emerald-500"></i>Log Transaksi Global
+                                </h3>
+                                <p class="text-xs text-gray-400 mt-0.5">Menyokong arkib rekod merentas tahun tanpa had.</p>
+                            </div>
                             
                             <div class="flex items-center space-x-2 w-full sm:w-auto">
-                                <div class="relative w-full sm:w-44">
+                                <div class="relative w-full sm:w-56">
                                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
                                         <i class="fa-solid fa-magnifying-glass text-xs"></i>
                                     </span>
                                     <input 
                                         type="text" 
                                         id="search-year-input" 
-                                        placeholder="Cari tahun (cth: 2026)..." 
+                                        placeholder="Taip mana-mana tahun (Cth: 2030)..." 
                                         class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block pl-8 pr-7 py-1.5 font-medium shadow-sm placeholder-gray-400"
                                     >
                                     <button id="clear-search" class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-gray-400 hover:text-gray-600 hidden">
@@ -152,36 +155,48 @@
                             <table class="w-full text-sm text-left text-gray-500" id="transaction-table">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
                                     <tr>
-                                        <th class="px-4 py-3">Tarikh</th>
+                                        <th class="px-4 py-3">Tarikh (dd/mm/yyyy)</th>
                                         <th class="px-4 py-3">Butiran</th>
                                         <th class="px-4 py-3">Kategori</th>
                                         <th class="px-4 py-3 text-right">Jumlah</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-100" id="table-body">
-                                    <tr class="hover:bg-gray-50" data-year="2026">
-                                        <td class="px-4 py-3.5 text-gray-600">05/06/2026</td>
-                                        <td class="px-4 py-3.5 font-medium text-gray-900">Kutipan Tabung Jumaat</td>
+                                    <tr class="hover:bg-gray-50 transition-colors" data-date="05/06/2030">
+                                        <td class="px-4 py-3.5 text-gray-600 font-mono">05/06/2030</td>
+                                        <td class="px-4 py-3.5 font-medium text-gray-900">Kutipan Dana Baik Pulih Struktur</td>
                                         <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-medium">Masuk</span></td>
-                                        <td class="px-4 py-3.5 text-right font-semibold text-emerald-600">+ RM 1,850.00</td>
+                                        <td class="px-4 py-3.5 text-right font-semibold text-emerald-600">+ RM 5,000.00</td>
                                     </tr>
-                                    <tr class="hover:bg-gray-50" data-year="2026">
-                                        <td class="px-4 py-3.5 text-gray-600">12/06/2026</td>
+                                    <tr class="hover:bg-gray-50 transition-colors" data-date="12/06/2026">
+                                        <td class="px-4 py-3.5 text-gray-600 font-mono">12/06/2026</td>
                                         <td class="px-4 py-3.5 font-medium text-gray-900">Bayaran Bil Elektrik & Utiliti</td>
                                         <td class="px-4 py-3.5"><span class="bg-rose-100 text-rose-800 text-xs px-2 py-0.5 rounded-full font-medium">Keluar</span></td>
                                         <td class="px-4 py-3.5 text-right font-semibold text-rose-600">- RM 450.50</td>
                                     </tr>
-                                    <tr class="hover:bg-gray-50" data-year="2025">
-                                        <td class="px-4 py-3.5 text-gray-600">18/06/2025</td>
+                                    <tr class="hover:bg-gray-50 transition-colors" data-date="18/06/2025">
+                                        <td class="px-4 py-3.5 text-gray-600 font-mono">18/06/2025</td>
                                         <td class="px-4 py-3.5 font-medium text-gray-900">Sumbangan Awam Tabung Khas</td>
                                         <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-medium">Masuk</span></td>
                                         <td class="px-4 py-3.5 text-right font-semibold text-emerald-600">+ RM 3,210.00</td>
                                     </tr>
-                                    <tr class="hover:bg-gray-50" data-year="2024">
-                                        <td class="px-4 py-3.5 text-gray-600">22/06/2024</td>
+                                    <tr class="hover:bg-gray-50 transition-colors" data-date="22/03/2024">
+                                        <td class="px-4 py-3.5 text-gray-600 font-mono">22/03/2024</td>
                                         <td class="px-4 py-3.5 font-medium text-gray-900">Penyelenggaraan & Baiki Paip</td>
                                         <td class="px-4 py-3.5"><span class="bg-rose-100 text-rose-800 text-xs px-2 py-0.5 rounded-full font-medium">Keluar</span></td>
                                         <td class="px-4 py-3.5 text-right font-semibold text-rose-600">- RM 830.00</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition-colors" data-date="10/01/2021">
+                                        <td class="px-4 py-3.5 text-gray-600 font-mono">10/01/2021</td>
+                                        <td class="px-4 py-3.5 font-medium text-gray-900">Sumbangan Penubuhan Awal Bilik ICT</td>
+                                        <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-medium">Masuk</span></td>
+                                        <td class="px-4 py-3.5 text-right font-semibold text-emerald-600">+ RM 2,270.00</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 transition-colors" data-date="15/08/2018">
+                                        <td class="px-4 py-3.5 text-gray-600 font-mono">15/08/2018</td>
+                                        <td class="px-4 py-3.5 font-medium text-gray-900">Pembelian Karpet Saf Utama</td>
+                                        <td class="px-4 py-3.5"><span class="bg-rose-100 text-rose-800 text-xs px-2 py-0.5 rounded-full font-medium">Keluar</span></td>
+                                        <td class="px-4 py-3.5 text-right font-semibold text-rose-600">- RM 1,280.50</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -198,20 +213,30 @@
             const searchInput = document.getElementById('search-year-input');
             const clearBtn = document.getElementById('clear-search');
             const tableBody = document.getElementById('table-body');
-            const tableRows = tableBody.querySelectorAll('tr');
+            const tableRows = tableBody.querySelectorAll('tbody tr');
             const currentBadge = document.getElementById('current-badge');
 
             function filterTable() {
                 const searchValue = searchInput.value.trim();
                 let matchCount = 0;
 
+                // Buang baris amaran "Tiada rekod" jika wujud sebelum ini
                 const existingNoRecord = document.getElementById('no-record-row');
                 if (existingNoRecord) {
                     existingNoRecord.remove();
                 }
 
                 tableRows.forEach(row => {
-                    const rowYear = row.getAttribute('data-year');
+                    // Ambil nilai tarikh penuh (dd/mm/yyyy) daripada atribut data-date
+                    const fullDate = row.getAttribute('data-date');
+                    
+                    if (!fullDate) return;
+
+                    // Ekstrak 4 digit terakhir (Tahun) daripada string format dd/mm/yyyy
+                    const dateParts = fullDate.split('/');
+                    const rowYear = dateParts[2]; // Mengambil indeks ke-2 (iaitu yyyy)
+
+                    // Menggunakan teknik substring matching (membolehkan carian fleksibel/partial typing)
                     if (searchValue === '' || (rowYear && rowYear.includes(searchValue))) {
                         row.classList.remove('hidden');
                         matchCount++;
@@ -220,9 +245,10 @@
                     }
                 });
 
+                // Mengemaskini UI indikator carian
                 if (searchValue !== '') {
                     clearBtn.classList.remove('hidden');
-                    currentBadge.textContent = `Carian: ${searchValue}`;
+                    currentBadge.textContent = `Tahun: ${searchValue}`;
                     currentBadge.className = "text-xs bg-emerald-100 px-2.5 py-1.5 rounded-full text-emerald-800 font-semibold whitespace-nowrap";
                 } else {
                     clearBtn.classList.add('hidden');
@@ -230,17 +256,20 @@
                     currentBadge.className = "text-xs bg-slate-100 px-2.5 py-1.5 rounded-full text-gray-600 font-medium whitespace-nowrap";
                 }
 
+                // Paparan alternatif sekiranya tiada padanan langsung dijumpai
                 if (matchCount === 0) {
                     const emptyRow = document.createElement('tr');
                     emptyRow.id = 'no-record-row';
                     emptyRow.className = 'text-center text-gray-400 italic bg-gray-50/50';
-                    emptyRow.innerHTML = `<td colspan="4" class="py-8 text-xs">Tiada rekod transaksi ditemui untuk tahun "${searchValue}"</td>`;
+                    emptyRow.innerHTML = `<td colspan="4" class="py-10 text-xs text-gray-400">Tiada sebarang transaksi direkodkan bagi entri tahun "${searchValue}"</td>`;
                     tableBody.appendChild(emptyRow);
                 }
             }
 
+            // Membaca input secara real-time untuk prestasi carian pantas
             searchInput.addEventListener('input', filterTable);
 
+            // Fungsi reset input carian
             clearBtn.addEventListener('click', function() {
                 searchInput.value = '';
                 filterTable();
