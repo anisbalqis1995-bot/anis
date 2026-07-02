@@ -6,45 +6,85 @@
     <title>Dashboard VCMS - Buku Tunai & Tracking</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Memastikan submenu tersembunyi secara lalai */
+        .submenu, .nested-submenu {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-10px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        /* Kelas aktif yang dikawal oleh JavaScript */
+        .submenu.show-menu, .nested-submenu.show-menu {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+        }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans antialiased">
 
     <div class="flex h-screen">
-        <div class="bg-slate-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out shadow-lg">
+        <div class="bg-slate-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out shadow-lg z-30">
             <div class="flex items-center space-x-2 px-4 justify-center">
                 <i class="fa-solid fa-mosque text-2xl text-emerald-400"></i>
                 <span class="text-2xl font-extrabold tracking-tight">VCMS System</span>
             </div>
-            <nav class="space-y-1.5 px-2">
+            
+            <nav class="space-y-1.5 px-2 relative">
                 <a href="index.html" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
                     <i class="fa-solid fa-gauge-high mr-2.5 w-5 text-center text-slate-400"></i> Dashboard
                 </a>
                 
                 <hr class="border-slate-700 my-2 mx-4">
 
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
-                    <i class="fa-solid fa-calculator mr-2.5 w-5 text-center text-slate-400"></i> Anggaran
-                </a>
+                <div class="relative has-submenu" data-menu="anggaran">
+                    <a href="#" class="flex items-center justify-between py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
+                        <span><i class="fa-solid fa-calculator mr-2.5 w-5 text-center text-slate-400"></i> Anggaran</span>
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
+                    </a>
+                    <div class="submenu absolute left-full top-0 ml-2 w-48 bg-slate-800 rounded-lg shadow-xl border border-slate-700 py-2 z-40">
+                        </div>
+                </div>
                 
-                <a href="financial-tracking.html" class="block py-2.5 px-4 rounded transition duration-200 bg-emerald-600 text-white font-medium text-sm">
-                    <i class="fa-solid fa-book mr-2.5 w-5 text-center"></i> Buku Tunai
-                </a>
+                <div class="relative has-submenu" data-menu="buku-tunai">
+                    <a href="financial-tracking.html" class="flex items-center justify-between py-2.5 px-4 rounded transition duration-200 bg-emerald-600 text-white font-medium text-sm">
+                        <span><i class="fa-solid fa-book mr-2.5 w-5 text-center"></i> Buku Tunai</span>
+                        <i class="fa-solid fa-chevron-right text-xs text-emerald-200"></i>
+                    </a>
+                    <div class="submenu absolute left-full top-0 ml-2 w-48 bg-slate-800 rounded-lg shadow-xl border border-slate-700 py-2 z-40"></div>
+                </div>
                 
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
-                    <i class="fa-solid fa-hand-holding-dollar mr-2.5 w-5 text-center text-slate-400"></i> Kutipan Tabung
-                </a>
+                <div class="relative has-submenu" data-menu="kutipan-tabung">
+                    <a href="#" class="flex items-center justify-between py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
+                        <span><i class="fa-solid fa-hand-holding-dollar mr-2.5 w-5 text-center text-slate-400"></i> Kutipan Tabung</span>
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
+                    </a>
+                    <div class="submenu absolute left-full top-0 ml-2 w-48 bg-slate-800 rounded-lg shadow-xl border border-slate-700 py-2 z-40" id="tabung-months-container">
+                        </div>
+                </div>
                 
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
-                    <i class="fa-solid fa-calendar-check mr-2.5 w-5 text-center text-slate-400"></i> Kutipan Jumaat
-                </a>
+                <div class="relative">
+                    <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
+                        <i class="fa-solid fa-calendar-check mr-2.5 w-5 text-center text-slate-400"></i> Kutipan Jumaat
+                    </a>
+                </div>
                 
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
-                    <i class="fa-solid fa-chart-pie mr-2.5 w-5 text-center text-slate-400"></i> Laporan Kewangan Bulanan
-                </a>
+                <div class="relative has-submenu" data-menu="laporan-bulanan">
+                    <a href="#" class="flex items-center justify-between py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
+                        <span><i class="fa-solid fa-chart-pie mr-2.5 w-5 text-center text-slate-400"></i> Laporan Bulanan</span>
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
+                    </a>
+                    <div class="submenu absolute left-full top-0 ml-2 w-48 bg-slate-800 rounded-lg shadow-xl border border-slate-700 py-2 z-40"></div>
+                </div>
                 
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
-                    <i class="fa-solid fa-file-invoice-dollar mr-2.5 w-5 text-center text-slate-400"></i> Penyata Kewangan
-                </a>
+                <div class="relative has-submenu" data-menu="penyata-kewangan">
+                    <a href="#" class="flex items-center justify-between py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
+                        <span><i class="fa-solid fa-file-invoice-dollar mr-2.5 w-5 text-center text-slate-400"></i> Penyata Kewangan</span>
+                        <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i>
+                    </a>
+                    <div class="submenu absolute left-full top-0 ml-2 w-48 bg-slate-800 rounded-lg shadow-xl border border-slate-700 py-2 z-40"></div>
+                </div>
             </nav>
         </div>
 
@@ -58,14 +98,11 @@
                 </div>
                 <div class="flex items-center space-x-4">
                     <span class="text-sm text-gray-500"><i class="fa-regular fa-calendar mr-1"></i> Pengurusan Rekod Global</span>
-                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold">
-                        A
-                    </div>
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold">A</div>
                 </div>
             </header>
 
             <main class="p-6 max-w-7xl w-full mx-auto space-y-6">
-                
                 <div class="hidden md:block">
                     <a href="index.html" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium inline-flex items-center">
                         <i class="fa-solid fa-arrow-left mr-2 text-xs"></i> Kembali ke Dashboard Utama
@@ -88,10 +125,8 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 h-fit">
                         <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-plus-minus mr-2 text-emerald-500"></i>Rekod Transaksi Baru</h3>
-                        
                         <form class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Transaksi</label>
@@ -100,22 +135,18 @@
                                     <option value="keluar">Duit Keluar (Perbelanjaan/Utiliti)</option>
                                 </select>
                             </div>
-                            
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Butiran / Keterangan</label>
                                 <input type="text" placeholder="Contoh: Kutipan Jumaat Minggu 1" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
                             </div>
-
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah (RM)</label>
                                 <input type="number" step="0.01" placeholder="0.00" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
                             </div>
-
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Tarikh Penuh</label>
                                 <input type="date" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
                             </div>
-
                             <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-200 shadow-sm text-sm">
                                 Simpan Transaksi
                             </button>
@@ -123,26 +154,17 @@
                     </div>
 
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 lg:col-span-2">
-                        
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                             <div>
-                                <h3 class="text-lg font-bold text-gray-800">
-                                    <i class="fa-solid fa-list-check mr-2 text-emerald-500"></i>Log Transaksi Global
-                                </h3>
+                                <h3 class="text-lg font-bold text-gray-800"><i class="fa-solid fa-list-check mr-2 text-emerald-500"></i>Log Transaksi Global</h3>
                                 <p class="text-xs text-gray-400 mt-0.5">Menyokong arkib rekod merentas tahun tanpa had.</p>
                             </div>
-                            
                             <div class="flex items-center space-x-2 w-full sm:w-auto">
                                 <div class="relative w-full sm:w-56">
                                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
                                         <i class="fa-solid fa-magnifying-glass text-xs"></i>
                                     </span>
-                                    <input 
-                                        type="text" 
-                                        id="search-year-input" 
-                                        placeholder="Taip mana-mana tahun (Cth: 2030)..." 
-                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block pl-8 pr-7 py-1.5 font-medium shadow-sm placeholder-gray-400"
-                                    >
+                                    <input type="text" id="search-year-input" placeholder="Taip mana-mana tahun (Cth: 2030)..." class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block pl-8 pr-7 py-1.5 font-medium shadow-sm placeholder-gray-400">
                                     <button id="clear-search" class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-gray-400 hover:text-gray-600 hidden">
                                         <i class="fa-solid fa-circle-xmark text-xs"></i>
                                     </button>
@@ -174,35 +196,10 @@
                                         <td class="px-4 py-3.5"><span class="bg-rose-100 text-rose-800 text-xs px-2 py-0.5 rounded-full font-medium">Keluar</span></td>
                                         <td class="px-4 py-3.5 text-right font-semibold text-rose-600">- RM 450.50</td>
                                     </tr>
-                                    <tr class="hover:bg-gray-50 transition-colors" data-date="18/06/2025">
-                                        <td class="px-4 py-3.5 text-gray-600 font-mono">18/06/2025</td>
-                                        <td class="px-4 py-3.5 font-medium text-gray-900">Sumbangan Awam Tabung Khas</td>
-                                        <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-medium">Masuk</span></td>
-                                        <td class="px-4 py-3.5 text-right font-semibold text-emerald-600">+ RM 3,210.00</td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50 transition-colors" data-date="22/03/2024">
-                                        <td class="px-4 py-3.5 text-gray-600 font-mono">22/03/2024</td>
-                                        <td class="px-4 py-3.5 font-medium text-gray-900">Penyelenggaraan & Baiki Paip</td>
-                                        <td class="px-4 py-3.5"><span class="bg-rose-100 text-rose-800 text-xs px-2 py-0.5 rounded-full font-medium">Keluar</span></td>
-                                        <td class="px-4 py-3.5 text-right font-semibold text-rose-600">- RM 830.00</td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50 transition-colors" data-date="10/01/2021">
-                                        <td class="px-4 py-3.5 text-gray-600 font-mono">10/01/2021</td>
-                                        <td class="px-4 py-3.5 font-medium text-gray-900">Sumbangan Penubuhan Awal Bilik ICT</td>
-                                        <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-medium">Masuk</span></td>
-                                        <td class="px-4 py-3.5 text-right font-semibold text-emerald-600">+ RM 2,270.00</td>
-                                    </tr>
-                                    <tr class="hover:bg-gray-50 transition-colors" data-date="15/08/2018">
-                                        <td class="px-4 py-3.5 text-gray-600 font-mono">15/08/2018</td>
-                                        <td class="px-4 py-3.5 font-medium text-gray-900">Pembelian Karpet Saf Utama</td>
-                                        <td class="px-4 py-3.5"><span class="bg-rose-100 text-rose-800 text-xs px-2 py-0.5 rounded-full font-medium">Keluar</span></td>
-                                        <td class="px-4 py-3.5 text-right font-semibold text-rose-600">- RM 1,280.50</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
                 </div>
             </main>
         </div>
@@ -210,72 +207,54 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search-year-input');
-            const clearBtn = document.getElementById('clear-search');
-            const tableBody = document.getElementById('table-body');
-            const tableRows = tableBody.querySelectorAll('tbody tr');
-            const currentBadge = document.getElementById('current-badge');
-
-            function filterTable() {
-                const searchValue = searchInput.value.trim();
-                let matchCount = 0;
-
-                // Buang baris amaran "Tiada rekod" jika wujud sebelum ini
-                const existingNoRecord = document.getElementById('no-record-row');
-                if (existingNoRecord) {
-                    existingNoRecord.remove();
-                }
-
-                tableRows.forEach(row => {
-                    // Ambil nilai tarikh penuh (dd/mm/yyyy) daripada atribut data-date
-                    const fullDate = row.getAttribute('data-date');
-                    
-                    if (!fullDate) return;
-
-                    // Ekstrak 4 digit terakhir (Tahun) daripada string format dd/mm/yyyy
-                    const dateParts = fullDate.split('/');
-                    const rowYear = dateParts[2]; // Mengambil indeks ke-2 (iaitu yyyy)
-
-                    // Menggunakan teknik substring matching (membolehkan carian fleksibel/partial typing)
-                    if (searchValue === '' || (rowYear && rowYear.includes(searchValue))) {
-                        row.classList.remove('hidden');
-                        matchCount++;
+            const months = ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
+            const weeks = ['Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4'];
+            
+            // 1. GENERATE SUBMENU SECARA AUTOMATIK
+            document.querySelectorAll('.has-submenu').forEach(menuItem => {
+                const submenu = menuItem.querySelector('.submenu');
+                const menuType = menuItem.getAttribute('data-menu');
+                
+                months.forEach(month => {
+                    if (menuType === 'kutipan-tabung') {
+                        // Struktur khas dengan ikon arrow untuk sub-level kedua
+                        const div = document.createElement('div');
+                        div.className = 'relative nested-parent px-4 py-2 hover:bg-slate-700 text-sm text-slate-300 hover:text-white cursor-pointer flex items-center justify-between';
+                        div.innerHTML = `<span>${month}</span> <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>`;
+                        
+                        // Cipta Container Minggu (Level 2 Submenu)
+                        const nestedSubmenu = document.createElement('div');
+                        nestedSubmenu.className = 'nested-submenu absolute left-full top-0 ml-1 w-40 bg-slate-800 rounded-lg shadow-xl border border-slate-700 py-1';
+                        
+                        weeks.forEach(week => {
+                            const wLink = document.createElement('a');
+                            wLink.href = '#';
+                            wLink.className = 'block px-4 py-2 hover:bg-emerald-600 text-xs text-slate-300 hover:text-white transition-colors';
+                            wLink.textContent = week;
+                            nestedSubmenu.appendChild(wLink);
+                        });
+                        
+                        div.appendChild(nestedSubmenu);
+                        submenu.appendChild(div);
                     } else {
-                        row.classList.add('hidden');
+                        // Struktur standard untuk menu biasa
+                        const a = document.createElement('a');
+                        a.href = '#';
+                        a.className = 'block px-4 py-2 hover:bg-slate-700 text-sm text-slate-300 hover:text-white transition-colors';
+                        a.textContent = month;
+                        submenu.appendChild(a);
                     }
                 });
-
-                // Mengemaskini UI indikator carian
-                if (searchValue !== '') {
-                    clearBtn.classList.remove('hidden');
-                    currentBadge.textContent = `Tahun: ${searchValue}`;
-                    currentBadge.className = "text-xs bg-emerald-100 px-2.5 py-1.5 rounded-full text-emerald-800 font-semibold whitespace-nowrap";
-                } else {
-                    clearBtn.classList.add('hidden');
-                    currentBadge.textContent = "Semua Rekod";
-                    currentBadge.className = "text-xs bg-slate-100 px-2.5 py-1.5 rounded-full text-gray-600 font-medium whitespace-nowrap";
-                }
-
-                // Paparan alternatif sekiranya tiada padanan langsung dijumpai
-                if (matchCount === 0) {
-                    const emptyRow = document.createElement('tr');
-                    emptyRow.id = 'no-record-row';
-                    emptyRow.className = 'text-center text-gray-400 italic bg-gray-50/50';
-                    emptyRow.innerHTML = `<td colspan="4" class="py-10 text-xs text-gray-400">Tiada sebarang transaksi direkodkan bagi entri tahun "${searchValue}"</td>`;
-                    tableBody.appendChild(emptyRow);
-                }
-            }
-
-            // Membaca input secara real-time untuk prestasi carian pantas
-            searchInput.addEventListener('input', filterTable);
-
-            // Fungsi reset input carian
-            clearBtn.addEventListener('click', function() {
-                searchInput.value = '';
-                filterTable();
-                searchInput.focus();
             });
-        });
-    </script>
-</body>
-</html>
+
+            // 2. KAWALAN TIMEOUT HOVER (Lengah 0.5 Saat & Pencegahan Tertutup Cepat)
+            let menuTimeout;
+
+            // Kawalan Level 1 (Main Menu -> Bulan)
+            document.querySelectorAll('.has-submenu').forEach(item => {
+                const submenu = item.querySelector('.submenu');
+
+                item.addEventListener('mouseenter', () => {
+                    clearTimeout(menuTimeout);
+                    menuTimeout = setTimeout(() => {
+                        // Tutup mana
