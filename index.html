@@ -116,25 +116,21 @@
                             </h3>
                             
                             <div class="flex items-center space-x-2 w-full sm:w-auto">
-                                <div class="relative w-full sm:w-48 z-10">
+                                <div class="relative w-full sm:w-44">
                                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
                                         <i class="fa-solid fa-magnifying-glass text-xs"></i>
                                     </span>
                                     <input 
-                                        type="text"
+                                        type="text" 
                                         id="search-year-input" 
-                                        placeholder="Taip & cari tahun..." 
-                                        autocomplete="off"
-                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block pl-8 pr-7 py-1.5 font-medium shadow-sm"
+                                        placeholder="Cari tahun (cth: 2026)..." 
+                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block pl-8 pr-7 py-1.5 font-medium shadow-sm placeholder-gray-400"
                                     >
                                     <button id="clear-search" class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-gray-400 hover:text-gray-600 hidden">
                                         <i class="fa-solid fa-circle-xmark text-xs"></i>
                                     </button>
-
-                                    <div id="dropdown-years" class="absolute w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg hidden max-h-48 overflow-y-auto">
-                                        </div>
                                 </div>
-                                <span class="text-xs bg-slate-100 px-2.5 py-1.5 rounded-full text-gray-600 font-medium whitespace-nowrap">Jun 2026</span>
+                                <span id="current-badge" class="text-xs bg-slate-100 px-2.5 py-1.5 rounded-full text-gray-600 font-medium whitespace-nowrap">Semua Rekod</span>
                             </div>
                         </div>
 
@@ -186,106 +182,63 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('search-year-input');
-            const dropdown = document.getElementById('dropdown-years');
             const clearBtn = document.getElementById('clear-search');
-            const tableRows = document.querySelectorAll('#table-body tr');
             const tableBody = document.getElementById('table-body');
+            const tableRows = tableBody.querySelectorAll('tr');
+            const currentBadge = document.getElementById('current-badge');
 
-            // 1. Ekstrak tahun unik yang benar-benar wujud dalam data jadual secara automatik
-            function getAvailableYears() {
-                const years = new Set();
-                tableRows.forEach(row => {
-                    const yr = row.getAttribute('data-year');
-                    if(yr) years.add(yr);
-                });
-                return Array.from(years).sort((a, b) => b - a); // Susun tahun dari terbaru
-            }
+            // Fungsi utama untuk menapis jadual berdasarkan teks input
+            function filterTable() {
+                const searchValue = searchInput.value.trim();
+                let matchCount = 0;
 
-            const availableYears = getAvailableYears();
-
-            // 2. Papar/Bina senarai dropdown berdasarkan carian input
-            function buildDropdown(filterText = '') {
-                dropdown.innerHTML = '';
-                const filtered = availableYears.filter(year => year.includes(filterText));
-
-                if (filtered.length === 0) {
-                    dropdown.innerHTML = `<div class="px-3 py-2 text-xs text-gray-400 italic">Tahun tidak ditemui</div>`;
-                    return;
+                // Padam mesej "Tiada rekod" sedia ada (jika ada)
+                const existingNoRecord = document.getElementById('no-record-row');
+                if (existingNoRecord) {
+                    existingNoRecord.remove();
                 }
-
-                filtered.forEach(year => {
-                    const option = document.createElement('div');
-                    option.className = 'px-3 py-2 text-xs text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer font-medium transition-colors';
-                    option.textContent = `Tahun ${year}`;
-                    option.addEventListener('click', () => {
-                        searchInput.value = year;
-                        dropdown.classList.add('hidden');
-                        filterTable(year);
-                        clearBtn.classList.remove('hidden');
-                    });
-                    dropdown.appendChild(option);
-                });
-            }
-
-            // 3. Fungsi utama menapis baris jadual
-            function filterTable(selectedYear) {
-                let hasData = false;
-                
-                // Buang mesej "tiada rekod" jika ada sebelum menapis semula
-                const emptyRow = document.getElementById('no-record-row');
-                if(emptyRow) emptyRow.remove();
 
                 tableRows.forEach(row => {
                     const rowYear = row.getAttribute('data-year');
-                    if (!selectedYear || rowYear === selectedYear) {
+
+                    // Jika input kosong, papar semua. Jika diisi, cari padanan teks (partial match)
+                    if (searchValue === '' || (rowYear && rowYear.includes(searchValue))) {
                         row.classList.remove('hidden');
-                        hasData = true;
+                        matchCount++;
                     } else {
                         row.classList.add('hidden');
                     }
                 });
 
-                // Papar mesej jika carian tahun tiada data langsung
-                if (!hasData) {
-                    const tr = document.createElement('tr');
-                    tr.id = 'no-record-row';
-                    tr.className = 'text-center text-gray-400 italic';
-                    tr.innerHTML = `<td colspan="4" class="py-8 text-xs">Tiada rekod transaksi ditemui untuk tahun ${selectedYear}</td>`;
-                    tableBody.appendChild(tr);
+                // Kawalan paparan butang Clear (X) dan Badge Status
+                if (searchValue !== '') {
+                    clearBtn.classList.remove('hidden');
+                    currentBadge.textContent = `Carian: ${searchValue}`;
+                    currentBadge.className = "text-xs bg-emerald-100 px-2.5 py-1.5 rounded-full text-emerald-800 font-semibold whitespace-nowrap";
+                } else {
+                    clearBtn.classList.add('hidden');
+                    currentBadge.textContent = "Semua Rekod";
+                    currentBadge.className = "text-xs bg-slate-100 px-2.5 py-1.5 rounded-full text-gray-600 font-medium whitespace-nowrap";
+                }
+
+                // Jika tiada padanan tahun langsung dalam sistem, papar mesej amaran ringkas
+                if (matchCount === 0) {
+                    const emptyRow = document.createElement('tr');
+                    emptyRow.id = 'no-record-row';
+                    emptyRow.className = 'text-center text-gray-400 italic bg-gray-50/50';
+                    emptyRow.innerHTML = `<td colspan="4" class="py-8 text-xs">Tiada rekod transaksi ditemui untuk tahun "${searchValue}"</td>`;
+                    tableBody.appendChild(emptyRow);
                 }
             }
 
-            // Event listener semasa pengguna klik atau menaip pada input
-            searchInput.addEventListener('focus', () => {
-                buildDropdown(searchInput.value);
-                dropdown.classList.remove('hidden');
-            });
+            // Dengar perubahan input semasa pengguna menaip (Real-time)
+            searchInput.addEventListener('input', filterTable);
 
-            searchInput.addEventListener('input', () => {
-                buildDropdown(searchInput.value);
-                dropdown.classList.remove('hidden');
-                if(searchInput.value) {
-                    clearBtn.classList.remove('hidden');
-                    filterTable(searchInput.value); // Tapis terus semasa menaip
-                } else {
-                    clearBtn.classList.add('hidden');
-                    filterTable(''); // Papar semua jika kosong
-                }
-            });
-
-            // Butang padam carian (X)
-            clearBtn.addEventListener('click', () => {
+            // Fungsi butang pangkah (X) untuk mengosongkan carian kembali ke asal
+            clearBtn.addEventListener('click', function() {
                 searchInput.value = '';
-                clearBtn.classList.add('hidden');
-                dropdown.classList.add('hidden');
-                filterTable('');
-            });
-
-            // Tutup dropdown apabila pengguna klik di luar kawasan carian
-            document.addEventListener('click', (e) => {
-                if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
-                    dropdown.classList.add('hidden');
-                }
+                filterTable();
+                searchInput.focus();
             });
         });
     </script>
