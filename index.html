@@ -15,21 +15,35 @@
                 <i class="fa-solid fa-mosque text-2xl text-emerald-400"></i>
                 <span class="text-2xl font-extrabold tracking-tight">VCMS System</span>
             </div>
-            <nav class="space-y-2 px-2">
-                <a href="index.html" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white">
-                    <i class="fa-solid fa-gauge-high mr-2"></i> Dashboard
+            <nav class="space-y-1.5 px-2">
+                <a href="index.html" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
+                    <i class="fa-solid fa-gauge-high mr-2.5 w-5 text-center text-slate-400"></i> Dashboard
                 </a>
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white">
-                    <i class="fa-solid fa-calculator mr-2"></i> Anggaran
+                
+                <hr class="border-slate-700 my-2 mx-4">
+
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
+                    <i class="fa-solid fa-calculator mr-2.5 w-5 text-center text-slate-400"></i> Anggaran
                 </a>
-                <a href="financial-tracking.html" class="block py-2.5 px-4 rounded transition duration-200 bg-emerald-600 text-white font-medium">
-                    <i class="fa-solid fa-book mr-2"></i> Buku Tunai
+                
+                <a href="financial-tracking.html" class="block py-2.5 px-4 rounded transition duration-200 bg-emerald-600 text-white font-medium text-sm">
+                    <i class="fa-solid fa-book mr-2.5 w-5 text-center"></i> Buku Tunai
                 </a>
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white">
-                    <i class="fa-solid fa-hand-holding-dollar mr-2"></i> Kutipan
+                
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
+                    <i class="fa-solid fa-hand-holding-dollar mr-2.5 w-5 text-center text-slate-400"></i> Kutipan Tabung
                 </a>
-                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white">
-                    <i class="fa-solid fa-file-invoice-dollar mr-2"></i> Laporan
+                
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
+                    <i class="fa-solid fa-calendar-check mr-2.5 w-5 text-center text-slate-400"></i> Kutipan Jumaat
+                </a>
+                
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
+                    <i class="fa-solid fa-chart-pie mr-2.5 w-5 text-center text-slate-400"></i> Laporan Kewangan Bulanan
+                </a>
+                
+                <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white text-sm">
+                    <i class="fa-solid fa-file-invoice-dollar mr-2.5 w-5 text-center text-slate-400"></i> Penyata Kewangan
                 </a>
             </nav>
         </div>
@@ -187,12 +201,10 @@
             const tableRows = tableBody.querySelectorAll('tr');
             const currentBadge = document.getElementById('current-badge');
 
-            // Fungsi utama untuk menapis jadual berdasarkan teks input
             function filterTable() {
                 const searchValue = searchInput.value.trim();
                 let matchCount = 0;
 
-                // Padam mesej "Tiada rekod" sedia ada (jika ada)
                 const existingNoRecord = document.getElementById('no-record-row');
                 if (existingNoRecord) {
                     existingNoRecord.remove();
@@ -200,8 +212,6 @@
 
                 tableRows.forEach(row => {
                     const rowYear = row.getAttribute('data-year');
-
-                    // Jika input kosong, papar semua. Jika diisi, cari padanan teks (partial match)
                     if (searchValue === '' || (rowYear && rowYear.includes(searchValue))) {
                         row.classList.remove('hidden');
                         matchCount++;
@@ -210,7 +220,6 @@
                     }
                 });
 
-                // Kawalan paparan butang Clear (X) dan Badge Status
                 if (searchValue !== '') {
                     clearBtn.classList.remove('hidden');
                     currentBadge.textContent = `Carian: ${searchValue}`;
@@ -221,7 +230,6 @@
                     currentBadge.className = "text-xs bg-slate-100 px-2.5 py-1.5 rounded-full text-gray-600 font-medium whitespace-nowrap";
                 }
 
-                // Jika tiada padanan tahun langsung dalam sistem, papar mesej amaran ringkas
                 if (matchCount === 0) {
                     const emptyRow = document.createElement('tr');
                     emptyRow.id = 'no-record-row';
@@ -231,10 +239,8 @@
                 }
             }
 
-            // Dengar perubahan input semasa pengguna menaip (Real-time)
             searchInput.addEventListener('input', filterTable);
 
-            // Fungsi butang pangkah (X) untuk mengosongkan carian kembali ke asal
             clearBtn.addEventListener('click', function() {
                 searchInput.value = '';
                 filterTable();
