@@ -3,26 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard VCMS - Pengurusan Kewangan</title>
+    <title>Dashboard VCMS - Buku Tunai & Tracking</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-gray-100 font-sans antialiased">
 
     <div class="flex h-screen">
+        <!-- SIDEBAR -->
         <div class="bg-slate-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out shadow-lg">
             <div class="flex items-center space-x-2 px-4 justify-center">
                 <i class="fa-solid fa-mosque text-2xl text-emerald-400"></i>
                 <span class="text-2xl font-extrabold tracking-tight">VCMS System</span>
             </div>
             <nav class="space-y-2 px-2">
-                <a href="index.html" class="block py-2.5 px-4 rounded transition duration-200 bg-emerald-600 text-white font-medium">
+                <a href="index.html" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white">
                     <i class="fa-solid fa-gauge-high mr-2"></i> Dashboard
                 </a>
                 <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white">
                     <i class="fa-solid fa-calculator mr-2"></i> Anggaran
                 </a>
-                <a href="financial-tracking.html" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white">
+                <a href="financial-tracking.html" class="block py-2.5 px-4 rounded transition duration-200 bg-emerald-600 text-white font-medium">
                     <i class="fa-solid fa-book mr-2"></i> Buku Tunai
                 </a>
                 <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-slate-700 hover:text-white">
@@ -34,130 +35,156 @@
             </nav>
         </div>
 
+        <!-- MAIN CONTENT AREA -->
         <div class="flex-1 flex flex-col overflow-y-auto">
-            
-            <header class="bg-white shadow-sm border-b border-gray-200 py-4 px-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <h1 class="text-xl font-bold text-gray-800">Ringkasan Kewangan</h1>
-                
-                <div class="flex flex-wrap items-center gap-4 w-full sm:w-auto justify-end">
-                    
-                    <div class="relative min-w-[140px] w-full sm:w-auto">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-                            <i class="fa-solid fa-calendar-days text-sm"></i>
-                        </div>
-                        <select id="search-year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full pl-9 pr-10 py-2 appearance-none cursor-pointer font-medium transition-colors">
-                            <option value="2026" selected>Tahun 2026</option>
-                            <option value="2025">Tahun 2025</option>
-                            <option value="2024">Tahun 2024</option>
-                        </select>
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-                            <i class="fa-solid fa-chevron-down text-xs"></i>
-                        </div>
-                    </div>
-
-                    <span class="text-sm text-gray-500 hidden sm:inline-block"><i class="fa-regular fa-calendar mr-1"></i> Jun 2026</span>
-                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold shadow-sm">
+            <header class="bg-white shadow-sm border-b border-gray-200 py-4 px-6 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <a href="index.html" class="text-gray-500 hover:text-emerald-600 transition-colors md:hidden mr-2">
+                        <i class="fa-solid fa-arrow-left text-xl"></i>
+                    </a>
+                    <h1 class="text-xl font-bold text-gray-800">Penjejakan Kewangan & Buku Tunai</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-500"><i class="fa-regular fa-calendar mr-1"></i> Jun 2026</span>
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold">
                         A
                     </div>
                 </div>
             </header>
 
-            <main class="p-6 max-w-7xl w-full mx-auto">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Anggaran Tahunan</p>
-                                <p class="text-2xl font-bold text-gray-900 mt-2">RM 45,000.00</p>
-                            </div>
-                            <div class="p-3 bg-blue-50 text-blue-600 rounded-lg">
-                                <i class="fa-solid fa-chart-pie text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="mt-4 flex items-center text-sm text-blue-600 font-medium">
-                            <span>Sediakan Anggaran</span>
-                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                        </div>
-                    </div>
-
-                    <a href="financial-tracking.html" class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer block">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Buku Tunai (Baki)</p>
-                                <p class="text-2xl font-bold text-emerald-600 mt-2">RM 12,350.40</p>
-                            </div>
-                            <div class="p-3 bg-emerald-50 text-emerald-600 rounded-lg">
-                                <i class="fa-solid fa-wallet text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="mt-4 flex items-center text-sm text-emerald-600 font-medium">
-                            <span>Kemaskini Transaksi</span>
-                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                        </div>
+            <main class="p-6 max-w-7xl w-full mx-auto space-y-6">
+                
+                <div class="hidden md:block">
+                    <a href="index.html" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium inline-flex items-center">
+                        <i class="fa-solid fa-arrow-left mr-2 text-xs"></i> Kembali ke Dashboard Utama
                     </a>
+                </div>
 
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-                        <div class="flex justify-between items-start">
+                <!-- KAD RINGKASAN -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Jumlah Pendapatan (Bulan Ini)</p>
+                        <p class="text-2xl font-bold text-emerald-600 mt-1">+ RM 5,420.00</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200">
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Jumlah Perbelanjaan (Bulan Ini)</p>
+                        <p class="text-2xl font-bold text-rose-600 mt-1">- RM 1,280.50</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 bg-emerald-50/50">
+                        <p class="text-xs font-semibold text-emerald-800 uppercase tracking-wider">Baki Bersih Buku Tunai</p>
+                        <p class="text-2xl font-extrabold text-slate-900 mt-1">RM 12,350.40</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- REKOD TRANSAKSI BARU -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 h-fit">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-plus-minus mr-2 text-emerald-500"></i>Rekod Transaksi Baru</h3>
+                        
+                        <form class="space-y-4">
                             <div>
-                                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Kutipan Tabung</p>
-                                <p class="text-2xl font-bold text-gray-900 mt-2">RM 3,210.00</p>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Transaksi</label>
+                                <select class="w-full rounded-lg border border-gray-300 p-2.5 bg-gray-50 text-sm focus:ring-emerald-500 focus:border-emerald-500">
+                                    <option value="masuk">Duit Masuk (Kutipan/Sumbangan)</option>
+                                    <option value="keluar">Duit Keluar (Perbelanjaan/Utiliti)</option>
+                                </select>
                             </div>
-                            <div class="p-3 bg-amber-50 text-amber-600 rounded-lg">
-                                <i class="fa-solid fa-box-archive text-xl"></i>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Butiran / Keterangan</label>
+                                <input type="text" placeholder="Contoh: Kutipan Jumaat Minggu 1" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
                             </div>
-                        </div>
-                        <div class="mt-4 flex items-center text-sm text-amber-600 font-medium">
-                            <span>Rekod Tabung Am/Khas</span>
-                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                        </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah (RM)</label>
+                                <input type="number" step="0.01" placeholder="0.00" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Tarikh</label>
+                                <input type="date" class="w-full rounded-lg border border-gray-300 p-2.5 text-sm focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
+
+                            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-200 shadow-sm text-sm">
+                                Simpan Transaksi
+                            </button>
+                        </form>
                     </div>
 
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Kutipan Jumaat</p>
-                                <p class="text-2xl font-bold text-gray-900 mt-2">RM 1,850.00</p>
-                            </div>
-                            <div class="p-3 bg-indigo-50 text-indigo-600 rounded-lg">
-                                <i class="fa-solid fa-calendar-check text-xl"></i>
+                    <!-- JADUAL TRANSAKSI DENGAN CARIAN TAHUN -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 lg:col-span-2">
+                        
+                        <!-- KEMASKINI BAHAGIAN ATAS JADUAL: SEARCHABLE DROPDOWN TAHUN -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                            <h3 class="text-lg font-bold text-gray-800">
+                                <i class="fa-solid fa-list-check mr-2 text-emerald-500"></i>Sejarah Transaksi Terkini
+                            </h3>
+                            
+                            <div class="flex items-center space-x-2 w-full sm:w-auto">
+                                <!-- INPUT CARIAN TAHUN -->
+                                <div class="relative w-full sm:w-44">
+                                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                                    </span>
+                                    <input 
+                                        list="years-list" 
+                                        id="search-year-input" 
+                                        placeholder="Cari tahun..." 
+                                        value="2026"
+                                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block pl-8 pr-3 py-1.5 font-medium shadow-sm placeholder-gray-400"
+                                    >
+                                    <!-- SENARAI PILIHAN TAHUN (DATALIST) -->
+                                    <datalist id="years-list">
+                                        <option value="2026">Tahun 2026</option>
+                                        <option value="2025">Tahun 2025</option>
+                                        <option value="2024">Tahun 2024</option>
+                                        <option value="2023">Tahun 2023</option>
+                                        <option value="2022">Tahun 2022</option>
+                                    </datalist>
+                                </div>
+                                <span class="text-xs bg-slate-100 px-2.5 py-1.5 rounded-full text-gray-600 font-medium whitespace-nowrap">Jun 2026</span>
                             </div>
                         </div>
-                        <div class="mt-4 flex items-center text-sm text-indigo-600 font-medium">
-                            <span>Kutipan Mingguan</span>
-                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                        </div>
-                    </div>
 
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Laporan Bulanan</p>
-                                <p class="text-2xl font-bold text-gray-900 mt-2">Rumusan Ringkas</p>
-                            </div>
-                            <div class="p-3 bg-purple-50 text-purple-600 rounded-lg">
-                                <i class="fa-solid fa-file-contract text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="mt-4 flex items-center text-sm text-purple-600 font-medium">
-                            <span>Lihat Graf & Analisis</span>
-                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Penyata Kewangan</p>
-                                <p class="text-2xl font-bold text-gray-900 mt-2">Penyata Rasmi</p>
-                            </div>
-                            <div class="p-3 bg-rose-50 text-rose-600 rounded-lg">
-                                <i class="fa-solid fa-file-invoice text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="mt-4 flex items-center text-sm text-rose-600 font-medium">
-                            <span>Cetak/Muat Turun PDF</span>
-                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        <!-- JADUAL DATA -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
+                                    <tr>
+                                        <th class="px-4 py-3">Tarikh</th>
+                                        <th class="px-4 py-3">Butiran</th>
+                                        <th class="px-4 py-3">Kategori</th>
+                                        <th class="px-4 py-3 text-right">Jumlah</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3.5 text-gray-600">05/06/2026</td>
+                                        <td class="px-4 py-3.5 font-medium text-gray-900">Kutipan Tabung Jumaat</td>
+                                        <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-medium">Masuk</span></td>
+                                        <td class="px-4 py-3.5 text-right font-semibold text-emerald-600">+ RM 1,850.00</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3.5 text-gray-600">12/06/2026</td>
+                                        <td class="px-4 py-3.5 font-medium text-gray-900">Bayaran Bil Elektrik & Utiliti</td>
+                                        <td class="px-4 py-3.5"><span class="bg-rose-100 text-rose-800 text-xs px-2 py-0.5 rounded-full font-medium">Keluar</span></td>
+                                        <td class="px-4 py-3.5 text-right font-semibold text-rose-600">- RM 450.50</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3.5 text-gray-600">18/06/2026</td>
+                                        <td class="px-4 py-3.5 font-medium text-gray-900">Sumbangan Awam Tabung Khas</td>
+                                        <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-medium">Masuk</span></td>
+                                        <td class="px-4 py-3.5 text-right font-semibold text-emerald-600">+ RM 3,210.00</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3.5 text-gray-600">22/06/2026</td>
+                                        <td class="px-4 py-3.5 font-medium text-gray-900">Penyelenggaraan & Baiki Paip</td>
+                                        <td class="px-4 py-3.5"><span class="bg-rose-100 text-rose-800 text-xs px-2 py-0.5 rounded-full font-medium">Keluar</span></td>
+                                        <td class="px-4 py-3.5 text-right font-semibold text-rose-600">- RM 830.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
