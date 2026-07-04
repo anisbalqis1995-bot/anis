@@ -363,7 +363,7 @@
                 });
             });
 
-            // 2. KAWALAN HOVER TIMEOUT (Lengah Masa Menghalang Submenu Tertutup Mengejut)
+            // 2. KAWALAN HOVER TIMEOUT (Lengah Masa & Pelarasan Kedudukan Viewport)
             let menuTimeout;
             let nestedTimeout;
 
@@ -377,7 +377,25 @@
                     document.querySelectorAll('.submenu').forEach(sub => {
                         if (sub !== submenu) sub.classList.remove('show-menu');
                     });
+                    
                     submenu.classList.add('show-menu');
+
+                    // Pelarasan dinamik kedudukan Y submenu level 1
+                    const itemRect = item.getBoundingClientRect();
+                    const submenuRect = submenu.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+
+                    // Tetapkan had ketinggian maksimum sekiranya skrin terlalu kecil (cth: mobile landscape)
+                    submenu.style.maxHeight = `${windowHeight - 40}px`;
+                    submenu.style.overflowY = 'auto';
+
+                    if (itemRect.top + submenuRect.height > windowHeight) {
+                        // Jika melimpah ke bawah, tolak kedudukan ke atas secara relatif kepada menu induk
+                        const overflowDiff = (itemRect.top + submenuRect.height) - windowHeight;
+                        submenu.style.top = `-${overflowDiff + 16}px`; // Margin selamat 16px dari bucu bawah
+                    } else {
+                        submenu.style.top = '0px';
+                    }
                 });
 
                 item.addEventListener('mouseleave', () => {
@@ -402,7 +420,21 @@
                         if (sub !== nested) sub.classList.remove('show-menu');
                     });
                     
-                    if (nested) nested.classList.add('show-menu');
+                    if (nested) {
+                        nested.classList.add('show-menu');
+
+                        // Pelarasan dinamik kedudukan Y submenu level 2 (Minggu)
+                        const parentRect = parent.getBoundingClientRect();
+                        const nestedRect = nested.getBoundingClientRect();
+                        const windowHeight = window.innerHeight;
+
+                        if (parentRect.top + nestedRect.height > windowHeight) {
+                            const overflowDiff = (parentRect.top + nestedRect.height) - windowHeight;
+                            nested.style.top = `-${overflowDiff + 16}px`;
+                        } else {
+                            nested.style.top = '0px';
+                        }
+                    }
                 }
             });
 
