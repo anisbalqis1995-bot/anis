@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Memastikan submenu tersembunyi secara lalai */
+        /* Memastikan submenu tersembunyi secara lalai dan terapung sepenuhnya */
         .submenu, .nested-submenu {
             opacity: 0;
             pointer-events: none;
             transform: translateX(-10px);
             transition: opacity 0.25s ease, transform 0.25s ease;
+            overflow: visible !important; /* Membenarkan submenu bertingkat keluar tanpa mencetuskan scrollbar */
         }
         
         /* Kelas aktif yang dikawal oleh JavaScript */
@@ -351,6 +352,37 @@
                         });
                         
                         div.appendChild(nestedSubmenu);
+                        
+                        // KAWALAN HOVER KHAS UNTUK LEVEL 2 (BULAN -> MINGGU 1-4)
+                        let nestedTimer;
+                        div.addEventListener('mouseenter', () => {
+                            clearTimeout(nestedTimer);
+                            // Tutup mana-mana sub-menu minggu lain yang terbuka dalam bulan lain
+                            submenu.querySelectorAll('.nested-submenu').forEach(sub => {
+                                if (sub !== nestedSubmenu) sub.classList.remove('show-menu');
+                            });
+                            
+                            nestedSubmenu.classList.add('show-menu');
+                            
+                            // Pelarasan kedudukan Y dinamik untuk sub-menu minggu
+                            const divRect = div.getBoundingClientRect();
+                            const nestedRect = nestedSubmenu.getBoundingClientRect();
+                            const windowHeight = window.innerHeight;
+                            
+                            if (divRect.top + nestedRect.height > windowHeight) {
+                                const overflowDiff = (divRect.top + nestedRect.height) - windowHeight;
+                                nestedSubmenu.style.top = `-${overflowDiff + 16}px`; // Margin selamat 16px dari bawah skrin
+                            } else {
+                                nestedSubmenu.style.top = '0px';
+                            }
+                        });
+                        
+                        div.addEventListener('mouseleave', () => {
+                            nestedTimer = setTimeout(() => {
+                                nestedSubmenu.classList.remove('show-menu');
+                            }, 200);
+                        });
+                        
                         submenu.appendChild(div);
                     } else {
                         // REKABENTUK STANDARD: Dokumen lain cuma pop-out bulan
@@ -363,16 +395,13 @@
                 });
             });
 
-            // 2. KAWALAN HOVER TIMEOUT (Lengah Masa & Pelarasan Kedudukan Viewport)
-            let menuTimeout;
-            let nestedTimeout;
-
-            // Kawalan Hover Submenu Level 1 (Main Menu -> Bulan)
+            // 2. KAWALAN HOVER TIMEOUT LEVEL 1 (Main Menu -> Bulan)
             document.querySelectorAll('.has-submenu').forEach(item => {
                 const submenu = item.querySelector('.submenu');
+                let submenuTimer;
 
                 item.addEventListener('mouseenter', () => {
-                    clearTimeout(menuTimeout);
+                    clearTimeout(submenuTimer);
                     // Tutup semua submenu level 1 yang lain
                     document.querySelectorAll('.submenu').forEach(sub => {
                         if (sub !== submenu) sub.classList.remove('show-menu');
@@ -385,10 +414,6 @@
                     const submenuRect = submenu.getBoundingClientRect();
                     const windowHeight = window.innerHeight;
 
-                    // Tetapkan had ketinggian maksimum sekiranya skrin terlalu kecil (cth: mobile landscape)
-                    submenu.style.maxHeight = `${windowHeight - 40}px`;
-                    submenu.style.overflowY = 'auto';
-
                     if (itemRect.top + submenuRect.height > windowHeight) {
                         // Jika melimpah ke bawah, tolak kedudukan ke atas secara relatif kepada menu induk
                         const overflowDiff = (itemRect.top + submenuRect.height) - windowHeight;
@@ -399,55 +424,13 @@
                 });
 
                 item.addEventListener('mouseleave', () => {
-                    menuTimeout = setTimeout(() => {
+                    submenuTimer = setTimeout(() => {
                         submenu.classList.remove('show-menu');
                         // Tutup sub-menu level 2 sekali jika tertutup
                         const activeNested = submenu.querySelector('.nested-submenu.show-menu');
                         if (activeNested) activeNested.classList.remove('show-menu');
-                    }, 350); // lengah 350ms
+                    }, 300); // lengah 300ms untuk kelancaran gerakan mouse
                 });
-            });
-
-            // Kawalan Hover Submenu Level 2 (Khas Kutipan Tabung: Bulan -> Minggu)
-            document.addEventListener('mouseover', function(e) {
-                const parent = e.target.closest('.nested-parent');
-                if (parent) {
-                    clearTimeout(nestedTimeout);
-                    const nested = parent.querySelector('.nested-submenu');
-                    
-                    // Tutup mana-mana submenu level 2 yang terbuka sebelumnya dalam modul ini
-                    parent.parentElement.querySelectorAll('.nested-submenu').forEach(sub => {
-                        if (sub !== nested) sub.classList.remove('show-menu');
-                    });
-                    
-                    if (nested) {
-                        nested.classList.add('show-menu');
-
-                        // Pelarasan dinamik kedudukan Y submenu level 2 (Minggu)
-                        const parentRect = parent.getBoundingClientRect();
-                        const nestedRect = nested.getBoundingClientRect();
-                        const windowHeight = window.innerHeight;
-
-                        if (parentRect.top + nestedRect.height > windowHeight) {
-                            const overflowDiff = (parentRect.top + nestedRect.height) - windowHeight;
-                            nested.style.top = `-${overflowDiff + 16}px`;
-                        } else {
-                            nested.style.top = '0px';
-                        }
-                    }
-                }
-            });
-
-            document.addEventListener('mouseout', function(e) {
-                const parent = e.target.closest('.nested-parent');
-                if (parent) {
-                    const nested = parent.querySelector('.nested-submenu');
-                    if (nested) {
-                        nestedTimeout = setTimeout(() => {
-                            nested.classList.remove('show-menu');
-                        }, 350);
-                    }
-                }
             });
 
             // 3. LOGIK TRANSYAKSI BUKU TUNAI & CARIAN/PENGIKUTAN
