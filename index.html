@@ -1,110 +1,58 @@
-<!DOCTYPE html>
-<html lang="ms">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CASHFLOW E-SURAU</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <style>[x-cloak] { display: none !important; }</style>
-</head>
-<body class="bg-slate-50 font-sans text-slate-800" x-data="vcmsApp()">
+<tr class="bg-emerald-50 font-bold text-emerald-950">
+                                            <td class="py-3 px-1 uppercase">JUMLAH PENERIMAAN</td>
+                                            <td class="py-3 text-right">RM <span x-text="getTotalIncome().toLocaleString()"></span></td>
+                                            <td class="py-3 text-right"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
 
-    <div class="flex h-screen overflow-hidden">
-        <aside class="w-64 bg-slate-950 text-slate-200 p-6 flex flex-col space-y-6">
-            <h1 class="text-emerald-400 font-bold text-xl uppercase tracking-wider">CASHFLOW</h1>
-            <nav class="space-y-2">
-                <button @click="activeTab = 'dashboard'" class="w-full text-left py-2 hover:text-emerald-400"><i class="fa-solid fa-gauge mr-2"></i> Dashboard</button>
-                <button @click="activeTab = 'anggaran'" class="w-full text-left py-2 hover:text-emerald-400"><i class="fa-solid fa-chart-pie mr-2"></i> Anggaran</button>
-                <button @click="activeTab = 'buku-tunai'" class="w-full text-left py-2 hover:text-emerald-400"><i class="fa-solid fa-book-open mr-2"></i> Buku Tunai & Log</button>
-            </nav>
-        </aside>
+    <script>
+        function vcmsApp() {
+            return {
+                activeTab: 'dashboard',
+                selectedYear: 2026,
+                selectedMonth: 'Julai',
+                kariahName: 'Surau Al-Falahiah',
+                showModularBoxes: true,
+                searchQuery: 2026,
+                
+                // Struktur Data Asas
+                data: {
+                    2026: {
+                        'Julai': {
+                            anggaran: {
+                                penerimaan: { sumbanganAm: 0, sumbanganKhas: 0, hasilSewaan: 0, tahlil: 0, sumbanganElaun: 0, hibahPelaburan: 0, deposit: 0 }
+                            }
+                        }
+                    }
+                },
 
-        <main class="flex-1 overflow-y-auto p-8">
-            
-            <div x-show="activeTab === 'dashboard'">
-                <h2 class="text-2xl font-bold mb-4">Dashboard Utama</h2>
-                <div class="grid grid-cols-3 gap-6">
-                    <div class="bg-white p-6 rounded-xl shadow">
-                        <p class="text-sm text-slate-500">Jumlah Penerimaan</p>
-                        <p class="text-2xl font-black" x-text="formatCurrency(getTotalIncome())"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div x-show="activeTab === 'buku-tunai'" x-cloak class="bg-white p-10 rounded-2xl shadow-sm border max-w-4xl mx-auto">
-                <div class="text-center border-b-2 border-black pb-6 mb-6">
-                    <h2 class="text-lg font-black uppercase">ANGGARAN PENERIMAAN DAN PEMBAYARAN</h2>
-                    <p class="font-bold">MASJID/SURAU: <span x-text="kariahName"></span></p>
-                </div>
-
-                <div class="mb-8">
-                    <h3 class="font-bold border-b border-black uppercase mb-3">Penerimaan</h3>
-                    <div class="space-y-2">
-                        <template x-for="(val, key) in data[selectedYear][selectedMonth].anggaran.penerimaan" :key="key">
-                            <div class="flex justify-between uppercase text-sm">
-                                <span x-text="key.replace(/([A-Z])/g, ' $1')"></span>
-                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.penerimaan[key]" class="w-32 text-right border rounded px-2">
-                            </div>
-                        </template>
-                    </div>
-                    <div class="mt-4 flex justify-between font-black text-emerald-800">
-                        <span>JUMLAH ANGGARAN PENERIMAAN</span>
-                        <span x-text="formatCurrency(getTotalIncome())"></span>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h3 class="font-bold border-b border-black uppercase mb-3">Pembayaran</h3>
-                    <div class="space-y-2">
-                        <template x-for="(val, key) in data[selectedYear][selectedMonth].anggaran.pembayaran" :key="key">
-                            <div class="flex justify-between uppercase text-sm">
-                                <span x-text="key.replace(/([A-Z])/g, ' $1')"></span>
-                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.pembayaran[key]" class="w-32 text-right border rounded px-2">
-                            </div>
-                        </template>
-                    </div>
-                    <div class="mt-4 flex justify-between font-black text-rose-800">
-                        <span>JUMLAH ANGGARAN PEMBAYARAN</span>
-                        <span x-text="formatCurrency(getTotalExpenses())"></span>
-                    </div>
-                </div>
-
-                <div class="pt-6 border-t-2 border-black flex justify-between text-lg font-black">
-                    <span>LEBIHAN / (KEKURANGAN)</span>
-                    <span x-text="formatCurrency(getTotalIncome() - getTotalExpenses())"></span>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <script>
-        function vcmsApp() {
-            return {
-                activeTab: 'dashboard',
-                selectedYear: 2026,
-                selectedMonth: 'Julai',
-                kariahName: 'Surau Al-Falahiah',
-                data: {
-                    2026: {
-                        'Julai': {
-                            anggaran: {
-                                penerimaan: { sumbanganAm: 0, sumbanganKhas: 0, hasilSewaan: 0, tahlil: 0, hibahBank: 0 },
-                                pembayaran: { pentadbiran: 0, pengurusanSumberManusia: 0, pembangunan: 0, dakwah: 0 }
-                            }
-                        }
-                    }
-                },
-                formatCurrency(val) { return 'RM ' + val.toLocaleString(undefined, {minimumFractionDigits: 2}); },
-                getTotalIncome() {
-                    return Object.values(this.data[2026]['Julai'].anggaran.penerimaan).reduce((a, b) => a + b, 0);
-                },
-                getTotalExpenses() {
-                    return Object.values(this.data[2026]['Julai'].anggaran.pembayaran).reduce((a, b) => a + b, 0);
-                }
-            }
-        }
-    </script>
+                initApp() {
+                    console.log("Sistem Cashflow Sedia Digunakan");
+                },
+                
+                setTab(tab) { this.activeTab = tab; },
+                getTabTitle() { return this.activeTab.charAt(0).toUpperCase() + this.activeTab.slice(1); },
+                formatCurrency(val) { return 'RM ' + val.toLocaleString(undefined, {minimumFractionDigits: 2}); },
+                
+                getTotalIncome() {
+                    let p = this.data[this.selectedYear][this.selectedMonth].anggaran.penerimaan;
+                    return p.sumbanganAm + p.sumbanganKhas + p.hasilSewaan + p.tahlil + p.sumbanganElaun + p.hibahPelaburan + p.deposit;
+                },
+                
+                // Tambah fungsi lain di sini...
+                updateCharts() { /* Logik untuk kemaskini carta Chart.js */ }
+            }
+        }
+    </script>
 </body>
 </html>
+boleh buat penambahbaikan yang saya minta itu pada code ini?
