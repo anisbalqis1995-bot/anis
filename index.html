@@ -2,16 +2,17 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CASHFLOW E-SURAU - Sistem Pengurusan Kewangan</title>
-    <!-- Tailwind CSS untuk reka bentuk premium -->
+    <title>Sistem VCMS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome untuk ikon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Alpine.js untuk kawalan dinamik / state management -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <!-- Chart.js untuk graf visual yang interaktif -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body x-data="vcmsApp()" x-init="initApp()">
+
+    <script src="app.js"></script>
+</body>
+</html>
     
     <style>
         [x-cloak] { display: none !important; }
