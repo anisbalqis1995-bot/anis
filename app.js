@@ -32,7 +32,6 @@ function vcmsApp() {
         // ...
     }
 }
-<script>
         function vcmsApp() {
             return {
                 activeTab: 'dashboard',
@@ -555,4 +554,3 @@ function vcmsApp() {
                 }
             };
         }
-    </script>
