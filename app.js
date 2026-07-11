@@ -16,18 +16,15 @@ function vcmsApp() {
             pentadbiran: 0, pembangunan: 0, dakwah: 0, khidmatSosial: 0, penjanaanEkonomi: 0, pelbagai: 0
         },
 
-        // --- FORMULA PENGIRAAN ---
+       // --- FORMULA BARU (MESRA INPUT TUNGGAL) ---
         get totalTerimaan() {
-            return (parseFloat(this.input.sumbanganAm) || 0) + (parseFloat(this.input.sumbanganKhas) || 0) + 
-                   (parseFloat(this.input.hasilSewaan) || 0) + (parseFloat(this.input.pelaburan) || 0) + 
-                   (parseFloat(this.input.deposit) || 0) + (parseFloat(this.input.hibahBank) || 0) + 
-                   (parseFloat(this.input.lainTerimaan) || 0);
+            // Jika jenis transaksi adalah Duit Masuk, ambil nilai dari input JUMLAH (RM)
+            return this.jenisTransaksi === 'Duit Masuk' ? (parseFloat(this.inputJumlah) || 0) : 0;
         },
 
         get totalPembayaran() {
-            return (parseFloat(this.input.pentadbiran) || 0) + (parseFloat(this.input.pembangunan) || 0) + 
-                   (parseFloat(this.input.dakwah) || 0) + (parseFloat(this.input.khidmatSosial) || 0) + 
-                   (parseFloat(this.input.penjanaanEkonomi) || 0) + (parseFloat(this.input.pelbagai) || 0);
+            // Jika jenis transaksi adalah Duit Keluar, ambil nilai dari input JUMLAH (RM)
+            return this.jenisTransaksi === 'Duit Keluar' ? (parseFloat(this.inputJumlah) || 0) : 0;
         },
 
         // --- MOCK DATABASE ---
