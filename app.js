@@ -18,13 +18,16 @@ function vcmsApp() {
 
         // --- FORMULA PENGIRAAN ---
         get totalTerimaan() {
-            return (parseFloat(this.input.sumbanganAm) + parseFloat(this.input.sumbanganKhas) + parseFloat(this.input.hasilSewaan) + 
-                    parseFloat(this.input.pelaburan) + parseFloat(this.input.deposit) + parseFloat(this.input.hibahBank) + parseFloat(this.input.lainTerimaan));
+            return (parseFloat(this.input.sumbanganAm) || 0) + (parseFloat(this.input.sumbanganKhas) || 0) + 
+                   (parseFloat(this.input.hasilSewaan) || 0) + (parseFloat(this.input.pelaburan) || 0) + 
+                   (parseFloat(this.input.deposit) || 0) + (parseFloat(this.input.hibahBank) || 0) + 
+                   (parseFloat(this.input.lainTerimaan) || 0);
         },
 
         get totalPembayaran() {
-            return (parseFloat(this.input.pentadbiran) + parseFloat(this.input.pembangunan) + parseFloat(this.input.dakwah) + 
-                    parseFloat(this.input.khidmatSosial) + parseFloat(this.input.penjanaanEkonomi) + parseFloat(this.input.pelbagai));
+            return (parseFloat(this.input.pentadbiran) || 0) + (parseFloat(this.input.pembangunan) || 0) + 
+                   (parseFloat(this.input.dakwah) || 0) + (parseFloat(this.input.khidmatSosial) || 0) + 
+                   (parseFloat(this.input.penjanaanEkonomi) || 0) + (parseFloat(this.input.pelbagai) || 0);
         },
 
         // --- MOCK DATABASE ---
@@ -49,6 +52,9 @@ function vcmsApp() {
 
             this.data[this.selectedYear][this.selectedMonth].bukuTunai.transaksi.push(newEntry);
             alert('Transaksi berjaya ditambah!');
+            
+            // Pilihan: Reset input selepas tambah
+            this.input = { sumbanganAm: 0, sumbanganKhas: 0, hasilSewaan: 0, pelaburan: 0, deposit: 0, hibahBank: 0, lainTerimaan: 0, pentadbiran: 0, pembangunan: 0, dakwah: 0, khidmatSosial: 0, penjanaanEkonomi: 0, pelbagai: 0 };
         },
 
         formatCurrency(val) {
