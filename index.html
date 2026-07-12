@@ -249,66 +249,372 @@
                                         <span class="text-[11px] text-blue-600 font-bold group-hover:underline">Buka Saringan Anggaran &rarr;</span>
                                     </div>
                                 </div>
-<!-- Table Buku Tunai Rasmi (Horizontal) -->
-<div class="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
-    <table class="w-full text-[10px] text-center text-slate-700 border-collapse">
-        <thead class="bg-slate-100 uppercase border-b border-gray-300 font-bold">
-            <tr>
-                <!-- Header Terimaan -->
-                <th colspan="9" class="border-r border-gray-300 py-2 bg-emerald-50 text-emerald-800">Bahagian Terimaan</th>
-                <!-- Header Pembayaran -->
-                <th colspan="8" class="py-2 bg-rose-50 text-rose-800">Bahagian Pembayaran</th>
-            </tr>
-            <tr class="border-b border-gray-300">
-                <!-- Kolum Terimaan -->
-                <th class="px-2 py-3 border-r">Tarikh</th>
-                <th class="px-2 py-3 border-r">Butiran</th>
-                <th class="px-2 py-3 border-r">No Resit</th>
-                <th class="px-2 py-3 border-r">No Slip</th>
-                <th class="px-2 py-3 border-r">Sumb. Am</th>
-                <th class="px-2 py-3 border-r">Sumb. Khas</th>
-                <th class="px-2 py-3 border-r">Sewa</th>
-                <th class="px-2 py-3 border-r">Lain</th>
-                <th class="px-2 py-3 border-r bg-gray-200">JUM.</th>
-                <!-- Kolum Pembayaran -->
-                <th class="px-2 py-3 border-r">Tarikh</th>
-                <th class="px-2 py-3 border-r">Butiran</th>
-                <th class="px-2 py-3 border-r">No Baucar</th>
-                <th class="px-2 py-3 border-r">No Cek</th>
-                <th class="px-2 py-3 border-r">Pentadbiran</th>
-                <th class="px-2 py-3 border-r">Pembangunan</th>
-                <th class="px-2 py-3 border-r">Pelbagai</th>
-                <th class="px-2 py-3 bg-gray-200">JUM.</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200">
-            <template x-for="(tx, index) in filteredTransactions()" :key="index">
-                <tr class="hover:bg-slate-50 transition">
-                    <!-- Data Terimaan (Hanya isi jika 'masuk') -->
-                    <td class="border-r px-2 py-3" x-text="tx.masuk > 0 ? tx.tarikh : '-'"></td>
-                    <td class="border-r px-2 py-3" x-text="tx.masuk > 0 ? tx.butiran : '-'"></td>
-                    <td class="border-r px-2 py-3">-</td>
-                    <td class="border-r px-2 py-3">-</td>
-                    <td class="border-r px-2 py-3" x-text="tx.masuk > 0 ? formatRaw(tx.masuk) : '-'"></td>
-                    <td class="border-r px-2 py-3">-</td>
-                    <td class="border-r px-2 py-3">-</td>
-                    <td class="border-r px-2 py-3">-</td>
-                    <td class="border-r px-2 py-3 font-bold bg-gray-50" x-text="tx.masuk > 0 ? formatRaw(tx.masuk) : '0.00'"></td>
+
+                                <!-- Kad: Buku Tunai (Seamless Tab Link) -->
+                                <div @click="setTab('bukutunai')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-emerald-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded uppercase">Aliran Tunai Sebenar</span>
+                                            <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg group-hover:bg-emerald-100 transition">
+                                                <i class="fa-solid fa-book-open"></i>
+                                            </div>
+                                        </div>
+                                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Buku Tunai & Log</h4>
+                                        <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500 font-medium">Baki Akhir (<span x-text="selectedMonth"></span>):</span>
+                                                <span class="font-bold text-emerald-600" x-text="formatCurrency(data[selectedYear][selectedMonth].bukuTunai.bakiAkhir)"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 text-right">
+                                        <span class="text-[11px] text-emerald-600 font-bold group-hover:underline">Buka Buku Tunai &rarr;</span>
+                                    </div>
+                                </div>
+
+                                <!-- Kad: Tabung Am -->
+                                <div @click="setTab('tabung')" class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md hover:border-amber-300 transition duration-150 cursor-pointer group flex flex-col justify-between">
+                                    <div>
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span class="text-[10px] bg-amber-100 text-amber-800 font-extrabold px-2 py-0.5 rounded uppercase">Agihan Peti Mingguan</span>
+                                            <div class="p-2 bg-amber-50 text-amber-600 rounded-lg group-hover:bg-amber-100 transition">
+                                                <i class="fa-solid fa-box-archive"></i>
+                                            </div>
+                                        </div>
+                                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Kutipan Tabung Mingguan</h4>
+                                        <div class="mt-4 space-y-2 border-t border-slate-100 pt-3">
+                                            <div class="flex justify-between text-xs">
+                                                <span class="text-slate-500">Bulan (<span x-text="selectedMonth"></span>):</span>
+                                                <span class="font-bold text-amber-600" x-text="formatCurrency(getMonthlyTabungTotal())"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 text-right">
+                                        <span class="text-[11px] text-amber-600 font-bold group-hover:underline">Buka Saringan &rarr;</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ================== TAB: ANGGARAN (PENGASINGAN FORMAT BARU - SEPERTI IMAGE_01A05C.PNG) ================== -->
+                <div x-show="activeTab === 'anggaran'" x-cloak class="space-y-6 animate-fadeIn">
+                    <div class="bg-white p-6 md:p-10 rounded-2xl shadow-md border border-slate-200 max-w-4xl mx-auto">
+                        
+                        <!-- Header Format mengikut image_01a05c.png -->
+                        <div class="text-center pb-6 border-b-2 border-slate-900 mb-8">
+                            <h2 class="text-lg font-black tracking-wider text-slate-900 uppercase">ANGGARAN PENERIMAAN DAN PEMBAYARAN</h2>
+                            <h3 class="text-md font-bold text-slate-800 uppercase mt-1">MASJID/SURAU: <span x-text="kariahName"></span></h3>
+                            <div class="mt-4 inline-flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
+                                <span class="text-xs font-bold text-emerald-800">Saringan Pelayaran:</span>
+                                <span class="text-xs font-extrabold text-emerald-950 uppercase" x-text="selectedMonth + ' ' + selectedYear"></span>
+                            </div>
+                        </div>
+
+                        <!-- Borang Kemasukan Anggaran Mengikut Lajur Dual-RM -->
+                        <div class="space-y-8 text-sm">
+                            
+                            <!-- BAHAGIAN PENERIMAAN -->
+                            <div>
+                                <div class="grid grid-cols-12 font-black text-slate-900 border-b-2 border-slate-900 pb-2 mb-3">
+                                    <div class="col-span-6 uppercase">PENERIMAAN</div>
+                                    <div class="col-span-3 text-right">RM</div>
+                                    <div class="col-span-3 text-right">RM</div>
+                                </div>
+                                <table class="w-full text-left">
+                                    <tbody class="divide-y divide-slate-100">
+                                        <!-- SUMBANGAN AM (BOLD) -->
+                                        <tr class="font-bold text-slate-900">
+                                            <td class="py-3 px-1 uppercase w-7/12">SUMBANGAN AM</td>
+                                            <td class="py-1 text-right w-3/12">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.penerimaan.sumbanganAm" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                            </td>
+                                            <td class="py-3 text-right w-2/12 font-mono"></td>
+                                        </tr>
+                                        <!-- SUMBANGAN KHAS (AMANAH) (BOLD) -->
+                                        <tr class="font-bold text-slate-900">
+                                            <td class="py-3 px-1 uppercase">SUMBANGAN KHAS (AMANAH)</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.penerimaan.sumbanganKhas" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                            </td>
+                                            <td class="py-3 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- HASIL SEWAAN/PENJANAAN EKONOMI (BOLD) -->
+                                        <tr class="font-bold text-slate-900">
+                                            <td class="py-3 px-1 uppercase">HASIL SEWAAN/PENJANAAN EKONOMI</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.penerimaan.hasilSewaan" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                            </td>
+                                            <td class="py-3 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- TAHLIL (REGULAR) -->
+                                        <tr class="text-slate-700 font-medium">
+                                            <td class="py-2.5 pl-6 uppercase">TAHLIL</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.penerimaan.tahlil" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                            </td>
+                                            <td class="py-2.5 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- SUMBANGAN ELAUN -->
+                                        <tr class="text-slate-700 font-medium">
+                                            <td class="py-2.5 pl-6 uppercase">SUMBANGAN ELAUN</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.penerimaan.sumbanganElaun" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                            </td>
+                                            <td class="py-2.5 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- HIBAH PELABURAN -->
+                                        <tr class="text-slate-700 font-medium">
+                                            <td class="py-2.5 pl-6 uppercase">HIBAH PELABURAN</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.penerimaan.hibahPelaburan" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                            </td>
+                                            <td class="py-2.5 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- DEPOSIT -->
+                                        <tr class="text-slate-700 font-medium">
+                                            <td class="py-2.5 pl-6 uppercase">DEPOSIT</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.penerimaan.deposit" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                            </td>
+                                            <td class="py-2.5 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- HIBAH BANK -->
+                                        <tr class="text-slate-700 font-medium">
+                                            <td class="py-2.5 pl-6 uppercase">HIBAH BANK</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.penerimaan.hibahBank" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                            </td>
+                                            <td class="py-2.5 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- LAIN-LAIN TERIMAAN -->
+                                        <tr class="text-slate-700 font-medium">
+                                            <td class="py-2.5 pl-6 uppercase">LAIN-LAIN TERIMAAN</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.penerimaan.lainTerimaan" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+                                            </td>
+                                            <td class="py-2.5 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- JUMLAH ANGGARAN PENERIMAAN -->
+                                        <tr class="font-extrabold text-slate-950 bg-slate-100/60 border-t-2 border-slate-800">
+                                            <td class="py-3 px-3 uppercase text-xs">JUMLAH ANGGARAN PENERIMAAN</td>
+                                            <td class="py-3 text-right"></td>
+                                            <td class="py-3 px-3 text-right font-mono border-b-4 border-double border-slate-900" x-text="formatRaw(getAnggaranHasil())"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div>
+                                <div class="grid grid-cols-12 font-black text-slate-900 border-b-2 border-slate-900 pb-2 mb-3">
+                                    <div class="col-span-6 uppercase">PEMBAYARAN</div>
+                                    <div class="col-span-3 text-right">RM</div>
+                                    <div class="col-span-3 text-right">RM</div>
+                                </div>
+                                <table class="w-full text-left">
+                                    <tbody class="divide-y divide-slate-100">
+                                        <!-- PENTADBIRAN -->
+                                        <tr class="text-slate-800 font-semibold">
+                                            <td class="py-2.5 px-1 uppercase w-7/12">PENTADBIRAN</td>
+                                            <td class="py-1 text-right w-3/12">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.pembayaran.pentadbiran" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-rose-800 focus:outline-none focus:ring-1 focus:ring-rose-500">
+                                            </td>
+                                            <td class="py-2.5 text-right w-2/12 font-mono"></td>
+                                        </tr>
+                                        <!-- PENGURUSAN SUMBER MANUSIA -->
+                                        <tr class="text-slate-800 font-semibold">
+                                            <td class="py-2.5 px-1 uppercase">PENGURUSAN SUMBER MANUSIA</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.pembayaran.sumberManusia" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-rose-800 focus:outline-none focus:ring-1 focus:ring-rose-500">
+                                            </td>
+                                            <td class="py-2.5 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- PEMBANGUNAN DAN PENYELENGGARAAN -->
+                                        <tr class="text-slate-800 font-semibold">
+                                            <td class="py-2.5 px-1 uppercase">PEMBANGUNAN DAN PENYELENGGARAAN</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.pembayaran.pembangunan" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-rose-800 focus:outline-none focus:ring-1 focus:ring-rose-500">
+                                            </td>
+                                            <td class="py-2.5 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- DAKWAH DAN PENGIMARAHAN -->
+                                        <tr class="text-slate-800 font-semibold">
+                                            <td class="py-2.5 px-1 uppercase">DAKWAH DAN PENGIMARAHAN</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.pembayaran.dakwah" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-rose-800 focus:outline-none focus:ring-1 focus:ring-rose-500">
+                                            </td>
+                                            <td class="py-2.5 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- KHIDMAT SOSIAL DAN KEMASYARAKATAN (BOLD) -->
+                                        <tr class="font-bold text-slate-900">
+                                            <td class="py-3 px-1 uppercase">KHIDMAT SOSIAL DAN KEMASYARAKATAN</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.pembayaran.khidmatSosial" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-rose-500">
+                                            </td>
+                                            <td class="py-3 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- PEMBELIAN ASET (BOLD) -->
+                                        <tr class="font-bold text-slate-900">
+                                            <td class="py-3 px-1 uppercase">PEMBELIAN ASET</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.pembayaran.pembelianAset" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-rose-500">
+                                            </td>
+                                            <td class="py-3 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- PERBELANJAAN KHAS (AMANAH) -->
+                                        <tr class="text-slate-800 font-semibold">
+                                            <td class="py-2.5 px-1 uppercase">PERBELANJAAN KHAS (AMANAH)</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.pembayaran.belanjaKhas" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-rose-800 focus:outline-none focus:ring-1 focus:ring-rose-500">
+                                            </td>
+                                            <td class="py-2.5 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- PELBAGAI -->
+                                        <tr class="text-slate-800 font-semibold">
+                                            <td class="py-2.5 px-1 uppercase">PELBAGAI</td>
+                                            <td class="py-1 text-right">
+                                                <input type="number" x-model.number="data[selectedYear][selectedMonth].anggaran.pembayaran.pelbagai" @input="updateCharts()" class="w-32 bg-slate-50 focus:bg-white text-right px-3 py-1.5 border border-slate-200 rounded-lg font-mono text-rose-800 focus:outline-none focus:ring-1 focus:ring-rose-500">
+                                            </td>
+                                            <td class="py-2.5 text-right font-mono"></td>
+                                        </tr>
+                                        <!-- JUMLAH ANGGARAN PEMBAYARAN -->
+                                        <tr class="font-extrabold text-slate-950 bg-slate-100/60 border-t-2 border-slate-800">
+                                            <td class="py-3 px-3 uppercase text-xs">JUMLAH ANGGARAN PEMBAYARAN</td>
+                                            <td class="py-3 text-right"></td>
+                                            <td class="py-3 px-3 text-right font-mono border-b-4 border-double border-slate-900" x-text="formatRaw(getAnggaranBelanja())"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- LEBIHAN / (KEKURANGAN) -->
+                            <div class="border-t-2 border-slate-900 pt-4 flex justify-between font-black text-slate-950 text-base">
+                                <span class="uppercase">LEBIHAN / (KEKURANGAN)</span>
+                                <span :class="getAnggaranSurplus() >= 0 ? 'text-emerald-700' : 'text-rose-700'" x-text="formatCurrency(getAnggaranSurplus())"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================== TAB: BUKU TUNAI (INTEGRASI PENUH SEAMLESS - RESOLVES JUMP ERROR) ================== -->
+                <div x-show="activeTab === 'bukutunai'" x-cloak class="space-y-6 animate-fadeIn">
                     
-                    <!-- Data Pembayaran (Hanya isi jika 'keluar') -->
-                    <td class="border-r px-2 py-3" x-text="tx.keluar > 0 ? tx.tarikh : '-'"></td>
-                    <td class="border-r px-2 py-3" x-text="tx.keluar > 0 ? tx.butiran : '-'"></td>
-                    <td class="border-r px-2 py-3">-</td>
-                    <td class="border-r px-2 py-3">-</td>
-                    <td class="border-r px-2 py-3" x-text="tx.keluar > 0 ? formatRaw(tx.keluar) : '-'"></td>
-                    <td class="border-r px-2 py-3">-</td>
-                    <td class="border-r px-2 py-3">-</td>
-                    <td class="px-2 py-3 font-bold bg-gray-50" x-text="tx.keluar > 0 ? formatRaw(tx.keluar) : '0.00'"></td>
-                </tr>
-            </template>
-        </tbody>
-    </table>
-</div>
+                    <!-- 3 Box KPI khusus Buku Tunai Semasa -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-emerald-100">
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Jumlah Penerimaan Sebenar</p>
+                            <p class="text-2xl font-black text-emerald-600 mt-2" x-text="formatCurrency(data[selectedYear][selectedMonth].bukuTunai.jumlahMasuk)"></p>
+                            <p class="text-[11px] text-gray-500 mt-1" x-text="'Duit masuk bagi ' + selectedMonth + ' ' + selectedYear"></p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-rose-100">
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Jumlah Perbelanjaan Sebenar</p>
+                            <p class="text-2xl font-black text-rose-600 mt-2" x-text="formatCurrency(getActualTotalKeluar())"></p>
+                            <p class="text-[11px] text-gray-500 mt-1">Berdasarkan log perbelanjaan sebenar yang telah dibayar.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-blue-100">
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Baki Bersih Buku Tunai</p>
+                            <p class="text-2xl font-black text-slate-950 mt-2" x-text="formatCurrency(data[selectedYear][selectedMonth].bukuTunai.bakiAkhir)"></p>
+                            <p class="text-[11px] text-emerald-700 mt-1 font-semibold">Aliran semasa yang selamat di bank.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Borang Kemasukan Transaksi Baru -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 h-fit">
+                            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-file-pen text-emerald-500"></i>
+                                Rekod Transaksi Sebenar
+                            </h3>
+                            <form @submit.prevent="addTransaction()" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Jenis Transaksi</label>
+                                    <select x-model="newTxType" class="w-full rounded-xl border border-gray-200 p-3 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold cursor-pointer">
+                                        <option value="masuk">Duit Masuk (Kutipan/Sumbangan)</option>
+                                        <option value="keluar">Duit Keluar (Perbelanjaan/Utiliti)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Butiran / Keterangan</label>
+                                    <input type="text" x-model="newTxDetails" required placeholder="Contoh: Kutipan Jumaat Mingguan" class="w-full rounded-xl border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Jumlah (RM)</label>
+                                    <input type="number" step="0.01" x-model.number="newTxAmount" required placeholder="0.00" class="w-full rounded-xl border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono font-bold">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Tarikh Transaksi</label>
+                                    <input type="date" x-model="newTxDate" required class="w-full rounded-xl border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium">
+                                </div>
+                                <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black py-3 px-4 rounded-xl transition duration-150 shadow-md text-sm">
+                                    Simpan Transaksi Baru
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Log Transaksi Real-time -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 lg:col-span-2 space-y-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                                        <i class="fa-solid fa-list-check text-emerald-500"></i>
+                                        Log Transaksi Sebenar (<span x-text="selectedMonth + ' ' + selectedYear"></span>)
+                                    </h3>
+                                    <p class="text-xs text-gray-400 mt-0.5">Semua rekod disimpan secara dinamik mengikut saringan bulan/tahun aktif.</p>
+                                </div>
+                                
+                                <div class="flex items-center space-x-2 w-full sm:w-auto">
+                                    <div class="relative w-full sm:w-60">
+                                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                                        </span>
+                                        <input type="text" x-model="bukuTunaiSearchQuery" placeholder="Cari keterangan..." class="w-full bg-gray-50 border border-gray-200 text-slate-800 text-xs rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 pl-9 pr-4 py-2.5 font-bold shadow-sm placeholder-gray-400">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="overflow-x-auto rounded-xl border border-gray-100">
+                                <table class="w-full text-sm text-left text-gray-500">
+                                    <thead class="text-xs text-slate-700 uppercase bg-slate-50 border-b border-gray-100">
+                                        <tr>
+                                            <th class="px-5 py-3">Tarikh</th>
+                                            <th class="px-5 py-3">Butiran / Keterangan</th>
+                                            <th class="px-5 py-3 text-center">Kategori</th>
+                                            <th class="px-5 py-3 text-right">Jumlah (RM)</th>
+                                            <th class="px-5 py-3 text-right">Baki Aliran (RM)</th>
+                                            <th class="px-5 py-3 text-center">Tindakan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <template x-for="(tx, index) in filteredTransactions()" :key="index">
+                                            <tr class="hover:bg-slate-50/50 transition">
+                                                <td class="px-5 py-4 text-gray-600 font-mono text-xs whitespace-nowrap" x-text="tx.tarikh"></td>
+                                                <td class="px-5 py-4 font-semibold text-slate-800" x-text="tx.butiran"></td>
+                                                <td class="px-5 py-4 text-center">
+                                                    <span :class="tx.masuk > 0 ? 'bg-emerald-100 border border-emerald-200 text-emerald-800' : 'bg-rose-100 border border-rose-200 text-rose-800'" class="text-[10px] px-2.5 py-1 rounded-full font-bold" x-text="tx.masuk > 0 ? 'Masuk' : 'Keluar'"></span>
+                                                </td>
+                                                <td class="px-5 py-4 text-right font-bold font-mono text-xs" :class="tx.masuk > 0 ? 'text-emerald-600' : 'text-rose-600'" x-text="tx.masuk > 0 ? '+ ' + formatRaw(tx.masuk) : '- ' + formatRaw(tx.keluar)"></td>
+                                                <td class="px-5 py-4 text-right font-bold text-slate-700 font-mono text-xs" x-text="formatRaw(tx.baki)"></td>
+                                                <td class="px-5 py-4 text-center">
+                                                    <button @click="deleteTransaction(index)" class="text-rose-500 hover:text-rose-700 p-1.5 transition" title="Padam Rekod">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                        <tr x-show="filteredTransactions().length === 0">
+                                            <td colspan="6" class="px-5 py-8 text-center text-gray-400 font-medium">Tiada rekod transaksi bagi bulan dan tahun rujukan ini.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- ================== TAB: KUTIPAN TABUNG ================== -->
                 <div x-show="activeTab === 'tabung'" x-cloak class="space-y-6 animate-fadeIn">
                     <div class="bg-amber-50/50 p-6 rounded-2xl border border-amber-200">
