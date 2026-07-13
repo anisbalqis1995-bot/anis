@@ -2,30 +2,61 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Utama</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'royal-blue': '#112250',
+                        'sapphire': '#3C507D',
+                        'swan-wing': '#F5F0E9',
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
-<body class="bg-slate-50">
+<body class="bg-swan-wing font-sans">
     <div class="flex h-screen">
-        <!-- Sidebar Navigation -->
-        <aside class="w-64 bg-slate-950 text-white p-4">
-            <h1 class="text-lg font-bold mb-6">CASHFLOW E-SURAU</h1>
+        <!-- Sidebar - Menggunakan Royal Blue -->
+        <aside class="w-64 bg-royal-blue text-white p-4">
+            <h1 class="text-lg font-bold mb-8 px-4">CASHFLOW E-SURAU</h1>
             <nav class="space-y-2">
-                <a href="index.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Dashboard</a>
-                <a href="anggaran.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Anggaran</a>
-                <a href="buku_tunai.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Buku Tunai & Log</a>
-                <a href="kutipan_jumaat.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Kutipan Jumaat</a>
-                <a href="kutipan_tabung_mingguan.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Kutipan Tabung</a>
-                <a href="laporan_bulanan.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Laporan Bulanan</a>
-                <a href="penyata_bulanan.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Penyata Bulanan</a>
+                <a href="index.html" class="block py-3 px-4 bg-sapphire rounded-lg font-medium"><i class="fas fa-home mr-3"></i>Dashboard Utama</a>
+                <a href="anggaran.html" class="block py-3 px-4 hover:bg-sapphire rounded-lg transition"><i class="fas fa-calculator mr-3"></i>Anggaran</a>
+                <a href="buku_tunai.html" class="block py-3 px-4 hover:bg-sapphire rounded-lg transition"><i class="fas fa-book mr-3"></i>Buku Tunai & Log</a>
+                <!-- Tambah pautan lain di sini -->
             </nav>
         </aside>
-        <main class="flex-1 p-8">
-            <h1>Dashboard Utama</h1>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 overflow-y-auto">
+            <!-- Header Kad -->
+            <div class="bg-royal-blue text-white p-6 rounded-xl shadow-lg mb-8">
+                <h2 class="text-2xl font-bold">CASHFLOW E-SURAU</h2>
+                <p class="opacity-80">Sistem kawalan anggaran dan laporan audit aliran tunai.</p>
+            </div>
+
+            <!-- Grid Kad Ringkasan -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border-l-4 border-sapphire shadow-sm">
+                    <p class="text-royal-blue font-semibold text-sm">JUMLAH PENERIMAAN</p>
+                    <p class="text-3xl font-bold text-royal-blue mt-2">RM 30,000.00</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">
+                    <p class="text-royal-blue font-semibold text-sm">JUMLAH ANGGARAN</p>
+                    <p class="text-3xl font-bold text-royal-blue mt-2">RM 24,500.00</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border-l-4 border-teal-600 shadow-sm">
+                    <p class="text-royal-blue font-semibold text-sm">BAKI LEBIHAN BERSIH</p>
+                    <p class="text-3xl font-bold text-royal-blue mt-2">RM 5,500.00</p>
+                </div>
+            </div>
         </main>
     </div>
-    <script src="common.js"></script>
 </body>
 </html>
