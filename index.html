@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Utama | E-Surau</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-slate-50">
+    <div class="flex h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-slate-950 text-white p-4">
+            <h1 class="text-xl font-bold mb-8 text-center">CASHFLOW E-SURAU</h1>
+            <nav class="space-y-2">
+                <a href="index.html" class="block py-2 px-4 bg-slate-800 rounded">Dashboard</a>
+                <a href="anggaran.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Anggaran</a>
+                <a href="buku_tunai.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Buku Tunai & Log</a>
+                <a href="kutipan_jumaat.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Kutipan Jumaat</a>
+                <a href="kutipan_tabung_mingguan.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Kutipan Tabung</a>
+                <a href="laporan_bulanan.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Laporan Bulanan</a>
+                <a href="penyata_bulanan.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Penyata Bulanan</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <header class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-800">Dashboard Utama</h2>
+                <p class="text-slate-600">Selamat datang ke sistem pengurusan kewangan e-surau anda.</p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Kad Ringkasan -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                    <h3 class="text-slate-500 text-sm font-semibold">Baki Semasa</h3>
+                    <p class="text-3xl font-bold text-slate-900 mt-2">RM 0.00</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                    <h3 class="text-slate-500 text-sm font-semibold">Kutipan Bulan Ini</h3>
+                    <p class="text-3xl font-bold text-emerald-600 mt-2">RM 0.00</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                    <h3 class="text-slate-500 text-sm font-semibold">Perbelanjaan Bulan Ini</h3>
+                    <p class="text-3xl font-bold text-rose-600 mt-2">RM 0.00</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="common.js"></script>
+</body>
+</html>
