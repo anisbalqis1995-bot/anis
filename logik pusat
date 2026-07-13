@@ -1,0 +1,7 @@
+// Centralized Data Logic
+const AppState = {
+    data: {}, // In the future, load this from your Cloud API
+    init() {
+        console.log("System Initialized");
+    }
+};
