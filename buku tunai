@@ -15,15 +15,15 @@
             <nav class="space-y-2">
                 <a href="index.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Dashboard</a>
                 <a href="anggaran.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Anggaran</a>
-                <a href="buku_tunai.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Buku Tunai & Log</a>
+                <a href="buku_tunai.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Buku Tunai</a>
                 <a href="kutipan_jumaat.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Kutipan Jumaat</a>
-                <a href="kutipan_tabung_mingguan.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Kutipan Tabung</a>
-                <a href="laporan_bulanan.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Laporan Bulanan</a>
-                <a href="penyata_bulanan.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Penyata Bulanan</a>
+                <a href="kutipan_tabung.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Kutipan Tabung</a>
+                <a href="laporan_kewangan.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Laporan Kewangan</a>
+                <a href="penyata_kewangan.html" class="block py-2 px-4 hover:bg-slate-800 rounded">Penyata Kewangan</a>
             </nav>
         </aside>
         <main class="flex-1 p-8">
-            <h1>Buku Tunai & Log</h1>
+            <h1>Buku Tunai</h1>
         </main>
     </div>
     <script src="common.js"></script>
